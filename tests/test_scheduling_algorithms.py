@@ -1,14 +1,22 @@
 import pytest
 import os
 import json
+import jsonschema
 import sys
 
 # Adjust path to include the 'src' directory for importing algorithms
 script_dir = os.path.dirname(__file__)
 input_models_dir = os.path.join(script_dir, "input_models")
+
 sys.path.append(os.path.abspath(os.path.join(script_dir, "..", "src")))
 from algorithms import ldf_single_node, edf_single_node, edf_multinode, ll_multinode, ldf_multinode, ldf_single_node
 
+output_schema_file = os.path.join(script_dir, "..","src","output_schema.json")
+
+with open(output_schema_file) as f:
+    output_schema = json.load(f)
+
+inputs = os.listdir(input_models_dir)
 
 # Utility function to load models and run scheduling algorithm
 def load_and_schedule(filename):
@@ -30,6 +38,18 @@ def load_and_schedule(filename):
  
     return results
 
+
+@pytest.mark.parametrize("filename", inputs)
+def test_output_schema(filename):
+    """Test that the generated schedule adheres to the schema """
+
+    for result, app_model in load_and_schedule(filename):
+        try:
+            jsonschema.validate(instance=result, schema=output_schema)
+            assert True
+        except jsonschema.exceptions.ValidationError as err:
+            assert False, f'Output does not match the output schema for {result["name"]}'
+        
 
 @pytest.mark.parametrize("filename", os.listdir(input_models_dir))
 def test_task_duration(filename):
