@@ -32,7 +32,7 @@ script_dir = os.path.dirname(__file__)
 input_schema_file = os.path.join(script_dir, "input_schema.json")
 output_schema_file = os.path.join(script_dir, "output_schema.json")
 
-## Load the input and output schema
+# Load the input and output schema
 with open(input_schema_file) as f:
     input_schema = json.load(f)
 
@@ -42,9 +42,9 @@ with open(output_schema_file) as f:
 app = FastAPI()
 origins = [
     "http://localhost:3000",
-    "http://localhost:3001",
     "http://localhost:5173",
     "https://eslab2.pages.dev",
+    "https://eslab.es.eti.uni-siegen.de"
 ]
 app.add_middleware(
     CORSMiddleware,
@@ -81,7 +81,7 @@ def schedule_jobs(data: dict):
 
     print("Received JSON data:", json.dumps(data, indent=4))
 
-    ## Validate the input as per input schema
+    # Validate the input as per input schema
     try:
         validate(instance=data, schema=input_schema)
         print("Input data is valid.")
@@ -105,7 +105,7 @@ def schedule_jobs(data: dict):
         "schedule4": ldf_multinode,
         "schedule5": edf_multinode,
     }
-    ## Validate the schedules as per output schema
+    # Validate the schedules as per output schema
     try:
         for key, value in response.items():
             validate(instance=value, schema=output_schema)
