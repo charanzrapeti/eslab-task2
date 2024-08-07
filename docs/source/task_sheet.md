@@ -136,8 +136,7 @@ In multi-node scheduling, the tasks can be distributed across different compute 
     pip install pytest-watch
     ptw
   ```
-- We have added a page to verify your code. You can go to the page https://eslab.es.eti.uni-siegen.de/verify/2/ upload your algorithms.py file
-and verify your solution.
+- You can verify your code at [solution verification](https://eslab.es.eti.uni-siegen.de/verify/2/).  Upload your algorithms.py file or copy-paste the code in the text box and click on the *Run Tests* button. 
 
 - For this lab, you can ignore the link delay and bandwidth fields in the platform model. You can assume that the communication between the nodes is instantaneous. There is no bandwidth constraint, and all nodes are connected to a single router. However, as a bonus, you are encouraged to consider the link delays and communication paths as defined in the platform model.
 
@@ -217,10 +216,8 @@ Use proper visualization, e.g., in MS Word use the equation editor (insert -> eq
 - Well-structured and logically organized code.
 - Comprehensive comments explaining the purpose and logic of the code.
 - Quality of the report.
-- Test by uploading algorithms.py file in https://eslab.es.eti.uni-siegen.de/verify/2/. All the 60 tests should be passed if your code is without errors. 
-  Initially the code will show 35 passed out of 60 as you are returning the example schedule. But after implementation of the algorithms, if the functions return the right schedule, then you will see a message
-"Congrats! All tests passed successfully". 
-- The total number of tests passes should be 60.
+- Test by uploading algorithms.py file in [solution verification](https://eslab.es.eti.uni-siegen.de/verify/2/). 
+- All the 60 tests should pass for final submission. The provided sample code already pass 35 out of 60 tests. 
 ## References
 - [Introduction to Graph Theory](https://www.baeldung.com/csgraph-theory-intro#8-the-weighted-graph)
 - [Basic Components, Shortest path, Search algorithms, Minimum Spanning Tree](https://www.geeksforgeeks.org/transpose-graph/?ref=lbp)
