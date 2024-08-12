@@ -28,5 +28,5 @@ __version__ = "1.0.0"
 
 
 # Define server settings
-SERVER_HOST = "127.0.0.1"  # Make 0.0.0.0 to allow access from other devices
+SERVER_HOST = "0.0.0.0"  # Make 0.0.0.0 to allow access from other devices
 SERVER_PORT = 8000  # Default port for Uvicorn

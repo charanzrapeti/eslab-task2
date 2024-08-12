@@ -1,4 +1,6 @@
 docs/build
 src/__pycache__/
 tests/__pycache__/
+.report.json
 venv/
+venv
