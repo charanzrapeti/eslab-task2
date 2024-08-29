@@ -15,18 +15,17 @@ __author__ = "Utkarsh Raj"
 __version__ = "1.0.0"
 
 
-from fastapi import HTTPException
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-import uvicorn
 import json
-import jsonschema
-from jsonschema import validate
 import os
 
-from config import SERVER_PORT, SERVER_HOST
-import algorithms as alg
+import jsonschema
+import uvicorn
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from jsonschema import validate
 
+import algorithms as alg
+from config import SERVER_HOST, SERVER_PORT
 
 script_dir = os.path.dirname(__file__)
 input_schema_file = os.path.join(script_dir, "input_schema.json")
@@ -41,6 +40,7 @@ with open(output_schema_file) as f:
 
 app = FastAPI()
 origins = [
+    "http://localhost",
     "http://localhost:3000",
     "http://localhost:5173",
     "https://eslab2.pages.dev",
