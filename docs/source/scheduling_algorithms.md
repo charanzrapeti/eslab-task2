@@ -12,12 +12,12 @@ The scheduling algorithms covered and to be implemented are:
 
 shift everything here and also describe deadliune , wcet and stuff
 
-![Application Model](application.png)
+![Application Model](./images/application.png)
 
 The application model is illustrated as a Directed Acyclic Graph (DAG), highlighting the tasks and their dependencies. Nodes within the DAG represent individual tasks, each annotated with attributes such as deadlines and execution times. Directed edges between nodes depict the dependency relationships among tasks, signifying that a task can only commence once all its prerequisite tasks (predecessors) have been completed.
 
 ## Platform Model:
-![Platform Model](platform.png)
+![Platform Model](./images/platform.png)
 The platform model showcases a single computational node responsible for executing the scheduled operations. Within this model, the node's scheduling decisions are guided by task deadlines to ensure that tasks with the nearest deadlines are given priority. The platform model emphasizes sequential task execution on the single computational node, maintaining adherence to the task dependencies defined in the application model.
 ## JSON Input
 we describe the json input for the figure above. 
