@@ -4,27 +4,24 @@ The scheduling algorithms covered and to be implemented are:
 
 1. Earliest Deadline First (EDF) for Single-Node
 2. Latest Deadline First (LDF) for Single-Node
-3. Earliest Deadline First (EDF) for Multi-Node.
-4. Latest Deadline First (LDF) for Multi-Node
-5. Least Laxity (LL) for Multi-Node
+3. Earliest Deadline First (EDF) for Multi-Node(without delay)
+4. Latest Deadline First (LDF) for Multi-Node(without delay)
+5. Least Laxity (LL) for Multi-Node(without delay)
 
 ## Application Model
 
-shift everything here and also describe deadliune , wcet and stuff
-
 ![Application Model](./images/application.png)
 
-The application model is illustrated as a Directed Acyclic Graph (DAG), highlighting the tasks and their dependencies. Nodes within the DAG represent individual tasks, each annotated with attributes such as deadlines and execution times. Directed edges between nodes depict the dependency relationships among tasks, signifying that a task can only commence once all its prerequisite tasks (predecessors) have been completed.
+The application model is illustrated as a Directed Acyclic Graph (DAG), highlighting the tasks and their dependencies. Nodes within the DAG represent individual tasks, each annotated with attributes such as deadlines and worst case execution times. Directed edges between nodes depict the dependency relationships among tasks, signifying that a task can only commence once all its prerequisite tasks (predecessors) have been completed.
 
 ## Platform Model
 
 ![Platform Model](./images/platform.png)
-The platform model showcases a single computational node responsible for executing the scheduled operations. Within this model, the node's scheduling decisions are guided by task deadlines to ensure that tasks with the nearest deadlines are given priority. The platform model emphasizes sequential task execution on the single computational node, maintaining adherence to the task dependencies defined in the application model.
+The platform model features multiple nodes, each with different roles including compute nodes, routers, sensors, and actuators. Tasks are distributed across these nodes, and the scheduling decisions are made based on task deadlines and dependencies, ensuring that tasks are executed in accordance with their timing constraints. The model supports parallel task execution on multiple compute nodes, with data transmission facilitated by routers and interactions with the physical environment managed by sensors and actuators. This setup allows for complex, distributed scheduling scenarios, reflecting a realistic multi-node platform environment
 
 ## JSON Input
 
-we describe the json input for the figure above.
-The input to the scheduling algorithms is a JSON object that describes the application and platform models. The application model includes tasks and messages, while the platform model includes nodes and links. The JSON input contains following objects and should conform to the [input JSON schema](README.md#api-input-schema-for-schedule-jobs).
+The input to the scheduling algorithms is a JSON object that describes the application and platform models. The application model includes tasks and messages, while the platform model includes nodes and links. The JSON input contains following objects and should conform to the [input JSON schema](./input_schema.json).
 
 - **Tasks**: Represent the tasks to be scheduled.
 - **Messages**: Represent dependencies between tasks.
@@ -33,184 +30,211 @@ The input to the scheduling algorithms is a JSON object that describes the appli
 
 ``` json
 
-    {
-        "application": {
+{
+    "application": {
         "tasks": [
-            {
-            "id": 0,
-            "wcet": 20,
-            "mcet": 10,
-            "deadline": 250
-            },
-            {
+        {
             "id": 1,
             "wcet": 20,
-            "mcet": 10,
-            "deadline": 250
-            },
-            {
+            "mcet": 20,
+            "deadline": 40
+        },
+        {
             "id": 2,
             "wcet": 20,
-            "mcet": 10,
-            "deadline": 300
-            
-            },
-            {
+            "mcet": 14,
+            "deadline": 100
+        },
+        {
             "id": 3,
             "wcet": 20,
-            "mcet": 10,
-            "deadline": 256
-        
-            }
+            "mcet": 11,
+            "deadline": 80
+        },
+        {
+            "id": 4,
+            "wcet": 20,
+            "mcet": 8,
+            "deadline": 77
+        },
+        {
+            "id": 5,
+            "wcet": 20,
+            "mcet": 26,
+            "deadline": 100
+        },
+        {
+            "id": 6,
+            "wcet": 20,
+            "mcet": 5,
+            "deadline": 120
+        }
         ],
         "messages": [
-            {
+        {
             "id": 0,
             "sender": 1,
-            "receiver": 0,
-            "size": 40
-            },
-            {
+            "receiver": 2,
+            "size": 20,
+            "message_injection_time": 0
+        },
+        {
             "id": 1,
             "sender": 2,
-            "receiver": 1,
-            "size": 40
-            },
-            {
-            "id": 2,
-            "sender": 3,
-            "receiver": 1,
-            "size": 40
-            }
-        ]
+            "receiver": 4,
+            "size": 20,
+            "message_injection_time": 0
         },
-        "platform": {
+        {
+            "id": 2,
+            "sender": 2,
+            "receiver": 5,
+            "size": 20,
+            "message_injection_time": 0
+        },
+        {
+            "id": 3,
+            "sender": 1,
+            "receiver": 3,
+            "size": 20,
+            "message_injection_time": 0
+        },
+        {
+            "id": 4,
+            "sender": 3,
+            "receiver": 6,
+            "size": 20,
+            "message_injection_time": 0
+        }
+        ]
+    },
+    "platform": {
         "nodes": [
-            {
+        {
             "id": 0,
             "type": "router"
-            },
-            {
+        },
+        {
             "id": 1,
             "type": "compute"
-            },
-            {
+        },
+        {
             "id": 2,
             "type": "compute"
-            },
-            {
+        },
+        {
             "id": 3,
             "type": "compute"
-            },
-            {
+        },
+        {
             "id": 4,
             "type": "compute"
-            },
-            {
+        },
+        {
             "id": 5,
             "type": "compute"
-            },
-            {
+        },
+        {
             "id": 6,
             "type": "compute"
-            },
-            {
+        },
+        {
             "id": 7,
             "type": "router"
-            },
-            {
+        },
+        {
             "id": 8,
             "type": "router"
-            },
-            {
+        },
+        {
             "id": 9,
             "type": "router"
-            }
+        }
         ],
         "links": [
-            {
-            "id":0,
+        {
+            "id": 0,
             "start_node": 0,
             "end_node": 7,
             "link_delay": 4,
-            "bandwidth":200,
+            "bandwidth": 200,
             "type": "ethernet"
-            },
-            {
-                "id":1,
+        },
+        {
+            "id": 1,
             "start_node": 1,
             "end_node": 7,
             "link_delay": 2,
-            "bandwidth":200,
+            "bandwidth": 200,
             "type": "ethernet"
-            },
-            {
-                "id":2,
+        },
+        {
+            "id": 2,
             "start_node": 7,
             "end_node": 8,
             "link_delay": 8,
-            "bandwidth":200,
+            "bandwidth": 200,
             "type": "ethernet"
-            },
-            {
-                "id":3,
+        },
+        {
+            "id": 3,
             "start_node": 2,
             "end_node": 8,
             "link_delay": 3,
-            "bandwidth":200,
+            "bandwidth": 200,
             "type": "ethernet"
-            },
-            {
-                "id":4,
+        },
+        {
+            "id": 4,
             "start_node": 3,
             "end_node": 8,
-            "link_delay": 5,
-            "bandwidth":200,
+            "link_delay": 1,
+            "bandwidth": 200,
             "type": "ethernet"
-            },
-            {
-                "id":5,
+        },
+        {
+            "id": 5,
             "start_node": 4,
             "end_node": 8,
-            "link_delay": 7,
-            "bandwidth":200,
+            "link_delay": 1,
+            "bandwidth": 200,
             "type": "wired"
-            },
-            {
-                "id":6,
+        },
+        {
+            "id": 6,
             "start_node": 8,
             "end_node": 9,
             "link_delay": 6,
-            "bandwidth":200,
+            "bandwidth": 200,
             "type": "wired"
-            },
-            {
-                "id":7,
+        },
+        {
+            "id": 7,
             "start_node": 7,
             "end_node": 9,
             "link_delay": 1,
-            "bandwidth":200,
+            "bandwidth": 200,
             "type": "ethernet"
-            },
-            {
-                "id":8,
+        },
+        {
+            "id": 8,
             "start_node": 5,
             "end_node": 9,
             "link_delay": 4,
-            "bandwidth":200,
+            "bandwidth": 200,
             "type": "ethernet"
-            },
-            {
-                "id":9,
+        },
+        {
+            "id": 9,
             "start_node": 6,
             "end_node": 9,
             "link_delay": 2,
-            "bandwidth":200,
+            "bandwidth": 200,
             "type": "ethernet"
-            }
-        ]
         }
+        ]
     }
+}
 ```
 
 ## Earliest Deadline First (EDF) for Single Node
@@ -253,50 +277,64 @@ Let's understand EDF scheduling for a single node using the Example above:
 
 ``` json
 {
-    "schedule": [
-          {
-                "task_id": 3,
+        "schedule": [
+            {
+                "task_id": 1,
                 "node_id": 0,
                 "end_time": 20,
-                "deadline": 256,
+                "deadline": 40,
                 "start_time": 0,
+                "execution_time": 20
+            },
+            {
+                "task_id": 3,
+                "node_id": 0,
+                "end_time": 40,
+                "deadline": 80,
+                "start_time": 20,
                 "execution_time": 20
             },
             {
                 "task_id": 2,
                 "node_id": 0,
-                "end_time": 40,
-                "deadline": 300,
-                "start_time": 20,
-                "execution_time": 20
-            },
-            {
-                "task_id": 1,
-                "node_id": 0,
                 "end_time": 60,
-                "deadline": 250,
+                "deadline": 100,
                 "start_time": 40,
                 "execution_time": 20
             },
             {
-                "task_id": 0,
+                "task_id": 5,
                 "node_id": 0,
                 "end_time": 80,
-                "deadline": 250,
+                "deadline": 100,
                 "start_time": 60,
                 "execution_time": 20
+            },
+            {
+                "task_id": 6,
+                "node_id": 0,
+                "end_time": 100,
+                "deadline": 120,
+                "start_time": 80,
+                "execution_time": 20
             }
-
-    ]
-}
+        ],
+        "missed_deadlines": [
+            4
+        ],
+        "name": "EDF Single-node"
+    }
 ```
 
 Consider the application model described above. Analyzing the order of tasks:
 
-- **Task 3** is executed first because it has no predecessors blocking its execution. It starts at time 0 and finishes at time 20, well ahead of its deadline of 256.
-- **Task 2** is next in line, starting right after Task 3 at time 20 and finishing at time 40. It also meets its deadline of 300.
-- **Task 1** is scheduled once Task 2 completes, beginning at time 40 and ending at time 60, just before its deadline of 250.
-- **Task 0** is the last task to be scheduled. It starts at time 60 and finishes at time 80, meeting its deadline of 250.
+- **Task 1** is executed first because it has no predecessors blocking its execution. It starts at time 0 and finishes at time 20, well ahead of its deadline of 40.
+- **Task 3** is next in line, starting right after Task 1 at time 20 and finishing at time 40. It also meets its deadline of 80.
+- **Task 2** is scheduled once Task 3 completes, beginning at time 40 and ending at time 60, well before its deadline of 100.
+- **Task 5** starts right after Task 2 finishes, beginning at time 60 and completing at time 80, meeting its deadline of 100.
+- **Task 6** is the last task to be scheduled. It starts at time 80 and finishes at time 100, just before its deadline of 120.
+
+However, **Task 4** misses its deadline, as indicated in the missed deadlines list.
 
 ## Latest Deadline First (LDF) for Single Node
 
@@ -332,16 +370,16 @@ This method maximizes the utilization of available time before their deadlines, 
 
 #### Example
 
-Consider the application model described by the DAG in Figure 1. Analyzing the order of tasks:
+Consider the application model described by the DAG. Analyzing the order of tasks:
 
 ``` json
-{
-    "schedule": [
+ {
+        "schedule": [
             {
-                "task_id": 3,
+                "task_id": 1,
                 "node_id": 0,
                 "end_time": 20,
-                "deadline": 256,
+                "deadline": 40,
                 "start_time": 0,
                 "execution_time": 20
             },
@@ -349,39 +387,60 @@ Consider the application model described by the DAG in Figure 1. Analyzing the o
                 "task_id": 2,
                 "node_id": 0,
                 "end_time": 40,
-                "deadline": 300,
+                "deadline": 100,
                 "start_time": 20,
                 "execution_time": 20
             },
             {
-                "task_id": 1,
+                "task_id": 4,
                 "node_id": 0,
                 "end_time": 60,
-                "deadline": 250,
+                "deadline": 77,
                 "start_time": 40,
                 "execution_time": 20
             },
             {
-                "task_id": 0,
+                "task_id": 3,
                 "node_id": 0,
                 "end_time": 80,
-                "deadline": 250,
+                "deadline": 80,
                 "start_time": 60,
                 "execution_time": 20
+            },
+            {
+                "task_id": 5,
+                "node_id": 0,
+                "end_time": 100,
+                "deadline": 100,
+                "start_time": 80,
+                "execution_time": 20
+            },
+            {
+                "task_id": 6,
+                "node_id": 0,
+                "end_time": 120,
+                "deadline": 120,
+                "start_time": 100,
+                "execution_time": 20
             }
-
-    ]
-}
+        ],
+        "missed_deadlines": [],
+        "name": "LDF Single-node"
+    }
 ```
 
-- **Task 3** is executed first because it has no predecessors blocking its execution. It starts at time 0 and finishes at time 20, well ahead of its deadline of 256.
-- **Task 2** is next in line, starting right after Task 3 at time 20 and finishing at time 40. It also meets its deadline of 300.
-- **Task 1** is scheduled once Task 2 completes, beginning at time 40 and ending at time 60, just before its deadline of 250.
-- **Task 0** is the last task to be scheduled. It starts at time 60 and finishes at time 80, meeting its deadline of 250.
+- **Task 1** is executed first because it has the earliest deadline. It starts at time 0 and finishes at time 20, meeting its deadline of 40.
+- **Task 2** starts immediately after Task 1, beginning at time 20 and completing at time 40, well ahead of its deadline of 100.
+- **Task 4** is scheduled next, starting at time 40 and finishing at time 60. It meets its deadline of 77.
+- **Task 3** follows Task 4, starting at time 60 and ending at time 80, just before its deadline of 80.
+- **Task 5** is then scheduled, starting at time 80 and finishing at time 100, meeting its deadline of 100.
+- **Task 6** is the final task. It starts at time 100 and finishes at time 120, meeting its deadline of 120.
 
-## Earliest Deadline First (EDF) Multi-Node 
+No deadlines were missed in this schedule.
 
-The **Earliest Deadline First (EDF) Multi-Node (Without Communication Delay)** algorithm is an extension of the EDF strategy applied to a multi-node environment. In this variant, tasks are scheduled across multiple computational nodes, prioritizing those with the earliest deadlines, while assuming that there is no communication delay between nodes. This simplifies the scheduling process, where task execution time and node availability are the primary factors considered.
+## Earliest Deadline First (EDF) Multi-Node (Without Communication Delay)
+
+The Earliest Deadline First (EDF) Multi-Node (Without Communication Delay) algorithm is an extension of the EDF strategy applied to a multi-node environment. In this variant, tasks are scheduled across multiple computational nodes, prioritizing those with the earliest deadlines, while assuming that there is no communication delay between nodes. This simplifies the scheduling process, where task execution time and node availability are the primary factors considered.
 
 ### Scheduling Mechanism
 
@@ -419,52 +478,75 @@ The **Earliest Deadline First (EDF) Multi-Node (Without Communication Delay)** a
 Consider an example of scheduling tasks on a multi-node platform using EDF without communication delay.
 
 ```json
-{
+ {
         "schedule": [
             {
-                "task_id": 3,
+                "task_id": 1,
                 "node_id": 1,
                 "end_time": 20,
-                "deadline": 256,
+                "deadline": 40,
                 "start_time": 0,
                 "execution_time": 20
             },
             {
-                "task_id": 2,
+                "task_id": 3,
                 "node_id": 2,
-                "end_time": 20,
-                "deadline": 300,
-                "start_time": 0,
-                "execution_time": 20
-            },
-            {
-                "task_id": 1,
-                "node_id": 3,
                 "end_time": 40,
-                "deadline": 250,
+                "deadline": 80,
                 "start_time": 20,
                 "execution_time": 20
             },
             {
-                "task_id": 0,
+                "task_id": 2,
+                "node_id": 3,
+                "end_time": 40,
+                "deadline": 100,
+                "start_time": 20,
+                "execution_time": 20
+            },
+            {
+                "task_id": 4,
                 "node_id": 4,
                 "end_time": 60,
-                "deadline": 250,
+                "deadline": 77,
+                "start_time": 40,
+                "execution_time": 20
+            },
+            {
+                "task_id": 5,
+                "node_id": 5,
+                "end_time": 60,
+                "deadline": 100,
+                "start_time": 40,
+                "execution_time": 20
+            },
+            {
+                "task_id": 6,
+                "node_id": 6,
+                "end_time": 60,
+                "deadline": 120,
                 "start_time": 40,
                 "execution_time": 20
             }
-        ]
+        ],
+        "missed_deadlines": [],
+        "name": "EDF Multinode(without delay)"
     }
 
 ```
 
 
-- **Task 3** is executed first on Node 1. It starts at time 0 and completes by time 20, meeting its deadline of 256.
-- **Task 2** runs simultaneously on Node 2. It begins at time 0 and finishes at time 20, well within its deadline of 300.
-- **Task 1** is scheduled on Node 3, starting at time 20 and ending at time 40. It meets its deadline of 250.
-- Finally, **Tasks 0** is assigned to Node 4, starting at time 40 and concluding at time 60. It successfully meets its deadline of 250.
+- **Task 1** is scheduled on Node 1. It starts at time 0 and finishes at time 20, meeting its deadline of 40.
+- **Task 3** executes on Node 2, beginning at time 20 and completing at time 40, well before its deadline of 80.
+- **Task 2** runs on Node 3, starting at time 20 and finishing at time 40, which is well within its deadline of 100.
+- **Task 4** is assigned to Node 4, starting at time 40 and ending at time 60, meeting its deadline of 77.
+- **Task 5** is scheduled on Node 5, starting at time 40 and finishing at time 60, which meets its deadline of 100.
+- **Task 6** runs on Node 6, starting at time 40 and ending at time 60, well within its deadline of 120.
 
-## Latest Deadline First (LDF) Multi-Node 
+- No deadlines were missed in this schedule.
+
+
+## Latest Deadline First (LDF) Multi-Node (Without Communication Delay)
 
 The **Latest Deadline First (LDF) Multi-Node (Without Communication Delay)** algorithm schedules tasks based on the latest possible deadlines in a multi-node environment. Unlike EDF, which prioritizes the earliest deadlines, LDF selects tasks that can afford to be scheduled later while still meeting their deadlines. In this variant, no communication delay between nodes is considered, simplifying the scheduling process.
 
@@ -506,48 +588,72 @@ Let's explore an example of scheduling tasks on a multi-node platform using LDF 
 
 ```json
     {
-    "schedule": [
-        {
-        "task_id": 0,
-        "node_id": 1,
-        "end_time": 20,
-        "deadline": 250,
-        "start_time": 0,
-        "execution_time": 20
-        },
-        {
-        "task_id": 1,
-        "node_id": 2,
-        "end_time": 40,
-        "deadline": 300,
-        "start_time": 20,
-        "execution_time": 20
-        },
-        {
-        "task_id": 2,
-        "node_id": 3,
-        "end_time": 40,
-        "deadline": 256,
-        "start_time": 20,
-        "execution_time": 20
-        },
-        {
-        "task_id": 3,
-        "node_id": 4,
-        "end_time": 60,
-        "deadline": 350,
-        "start_time": 40,
-        "execution_time": 20
-        }
-    ]
+        "schedule": [
+            {
+                "task_id": 1,
+                "node_id": 1,
+                "end_time": 20,
+                "deadline": 40,
+                "start_time": 0,
+                "execution_time": 20
+            },
+            {
+                "task_id": 2,
+                "node_id": 2,
+                "end_time": 40,
+                "deadline": 100,
+                "start_time": 20,
+                "execution_time": 20
+            },
+            {
+                "task_id": 4,
+                "node_id": 3,
+                "end_time": 60,
+                "deadline": 77,
+                "start_time": 40,
+                "execution_time": 20
+            },
+            {
+                "task_id": 3,
+                "node_id": 4,
+                "end_time": 40,
+                "deadline": 80,
+                "start_time": 20,
+                "execution_time": 20
+            },
+            {
+                "task_id": 5,
+                "node_id": 5,
+                "end_time": 60,
+                "deadline": 100,
+                "start_time": 40,
+                "execution_time": 20
+            },
+            {
+                "task_id": 6,
+                "node_id": 6,
+                "end_time": 60,
+                "deadline": 120,
+                "start_time": 40,
+                "execution_time": 20
+            }
+        ],
+        "missed_deadlines": [],
+        "name": "LDF Multinode(without delay)"
     }
 ```
-- **Task 3** is executed first on Node 1. It starts at time 0 and completes by time 20, meeting its deadline of 256.
-- **Task 2** runs simultaneously on Node 2. It begins at time 0 and finishes at time 20, well within its deadline of 300.
-- **Task 1** is scheduled on Node 3, starting at time 20 and ending at time 40. It meets its deadline of 250.
-- Finally, **Tasks 0** is assigned to Node 4, starting at time 40 and concluding at time 60. It successfully meets its deadline of 250.
 
-## Least Laxity First (LLF) Multi-Node 
+- **Task 1** is scheduled on Node 1. It starts at time 0 and finishes at time 20, meeting its deadline of 40.
+- **Task 2** runs on Node 2, starting at time 20 and completing at time 40, which is well within its deadline of 100.
+- **Task 4** is executed on Node 3, beginning at time 40 and finishing at time 60, meeting its deadline of 77.
+- **Task 3** is assigned to Node 4, starting at time 20 and finishing at time 40, which meets its deadline of 80.
+- **Task 5** is scheduled on Node 5, starting at time 40 and completing at time 60, meeting its deadline of 100.
+- **Task 6** runs on Node 6, starting at time 40 and finishing at time 60, which is well within its deadline of 120.
+
+- No deadlines were missed in this schedule.
+
+
+## Least Laxity First (LLF) Multi-Node (Without Communication Delay)
 
 The Least Laxity First (LLF) scheduling algorithm for multi-node environments prioritizes tasks based on their laxity, which is the difference between the task’s deadline and the time remaining to complete its execution. LLF aims to minimize the likelihood of missed deadlines by executing tasks with the least laxity first. This version assumes no communication delays between the nodes.
 
@@ -598,45 +704,68 @@ The Least Laxity First (LLF) scheduling algorithm for multi-node environments pr
 Let’s look at an example of LLF scheduling in a multi-node environment.
 
 ```json
-     {
+      {
         "schedule": [
             {
-                "task_id": 3,
+                "task_id": 1,
                 "node_id": 1,
                 "end_time": 20,
-                "deadline": 256,
+                "deadline": 40,
                 "start_time": 0,
                 "execution_time": 20
             },
             {
-                "task_id": 2,
+                "task_id": 3,
                 "node_id": 2,
-                "end_time": 20,
-                "deadline": 300,
-                "start_time": 0,
-                "execution_time": 20
-            },
-            {
-                "task_id": 1,
-                "node_id": 3,
                 "end_time": 40,
-                "deadline": 250,
+                "deadline": 80,
                 "start_time": 20,
                 "execution_time": 20
             },
             {
-                "task_id": 0,
+                "task_id": 2,
+                "node_id": 3,
+                "end_time": 40,
+                "deadline": 100,
+                "start_time": 20,
+                "execution_time": 20
+            },
+            {
+                "task_id": 4,
                 "node_id": 4,
                 "end_time": 60,
-                "deadline": 250,
+                "deadline": 77,
+                "start_time": 40,
+                "execution_time": 20
+            },
+            {
+                "task_id": 5,
+                "node_id": 5,
+                "end_time": 60,
+                "deadline": 100,
+                "start_time": 40,
+                "execution_time": 20
+            },
+            {
+                "task_id": 6,
+                "node_id": 6,
+                "end_time": 60,
+                "deadline": 120,
                 "start_time": 40,
                 "execution_time": 20
             }
-        ]
+        ],
+        "missed_deadlines": [],
+        "name": "LL(without delay)"
     }
-```
-- **Task 3** is executed first on Node 1. It starts at time 0 and completes by time 20, meeting its deadline of 256.
-- **Task 2** runs simultaneously on Node 2. It begins at time 0 and finishes at time 20, well within its deadline of 300.
-- **Task 1** is scheduled on Node 3, starting at time 20 and ending at time 40. It meets its deadline of 250.
-- Finally, **Tasks 0** is assigned to Node 4, starting at time 40 and concluding at time 60. It successfully meets its deadline of 250.
 
+```
+
+- **Task 1** is scheduled on Node 1, starting at time 0 and finishing at time 20, meeting its deadline of 40.
+- **Task 3** runs on Node 2, beginning at time 20 and completing at time 40, which meets its deadline of 80.
+- **Task 2** is assigned to Node 3, starting at time 20 and finishing at time 40, well within its deadline of 100.
+- **Task 4** is executed on Node 4, starting at time 40 and finishing at time 60, meeting its deadline of 77.
+- **Task 5** runs on Node 5, beginning at time 40 and completing at time 60, meeting its deadline of 100.
+- **Task 6** is scheduled on Node 6, starting at time 40 and finishing at time 60, which is well within its deadline of 120.
+
+- No deadlines were missed in this schedule.

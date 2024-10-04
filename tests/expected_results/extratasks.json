@@ -1,0 +1,666 @@
+{
+    "EDF Single-node": {
+        "schedule": [
+            {
+                "task_id": 8,
+                "node_id": 0,
+                "end_time": 2,
+                "deadline": 24,
+                "start_time": 0,
+                "execution_time": 2
+            },
+            {
+                "task_id": 3,
+                "node_id": 0,
+                "end_time": 4,
+                "deadline": 26,
+                "start_time": 2,
+                "execution_time": 2
+            },
+            {
+                "task_id": 4,
+                "node_id": 0,
+                "end_time": 6,
+                "deadline": 30,
+                "start_time": 4,
+                "execution_time": 2
+            },
+            {
+                "task_id": 7,
+                "node_id": 0,
+                "end_time": 8,
+                "deadline": 56,
+                "start_time": 6,
+                "execution_time": 2
+            },
+            {
+                "task_id": 0,
+                "node_id": 0,
+                "end_time": 10,
+                "deadline": 60,
+                "start_time": 8,
+                "execution_time": 2
+            },
+            {
+                "task_id": 1,
+                "node_id": 0,
+                "end_time": 11,
+                "deadline": 22,
+                "start_time": 10,
+                "execution_time": 1
+            },
+            {
+                "task_id": 2,
+                "node_id": 0,
+                "end_time": 13,
+                "deadline": 57,
+                "start_time": 11,
+                "execution_time": 2
+            }
+        ],
+        "missed_deadlines": [
+            5
+        ],
+        "name": "EDF Single-node"
+    },
+    "LDF Single-node": {
+        "schedule": [
+            {
+                "task_id": 0,
+                "node_id": 0,
+                "end_time": 2,
+                "deadline": 60,
+                "start_time": 0,
+                "execution_time": 2
+            },
+            {
+                "task_id": 1,
+                "node_id": 0,
+                "end_time": 3,
+                "deadline": 22,
+                "start_time": 2,
+                "execution_time": 1
+            },
+            {
+                "task_id": 4,
+                "node_id": 0,
+                "end_time": 5,
+                "deadline": 30,
+                "start_time": 3,
+                "execution_time": 2
+            },
+            {
+                "task_id": 2,
+                "node_id": 0,
+                "end_time": 7,
+                "deadline": 57,
+                "start_time": 5,
+                "execution_time": 2
+            },
+            {
+                "task_id": 5,
+                "node_id": 0,
+                "end_time": 8,
+                "deadline": 11,
+                "start_time": 7,
+                "execution_time": 1
+            },
+            {
+                "task_id": 6,
+                "node_id": 0,
+                "end_time": 9,
+                "deadline": 31,
+                "start_time": 8,
+                "execution_time": 1
+            },
+            {
+                "task_id": 9,
+                "node_id": 0,
+                "end_time": 11,
+                "deadline": 17,
+                "start_time": 9,
+                "execution_time": 2
+            },
+            {
+                "task_id": 8,
+                "node_id": 0,
+                "end_time": 13,
+                "deadline": 24,
+                "start_time": 11,
+                "execution_time": 2
+            },
+            {
+                "task_id": 3,
+                "node_id": 0,
+                "end_time": 15,
+                "deadline": 26,
+                "start_time": 13,
+                "execution_time": 2
+            },
+            {
+                "task_id": 7,
+                "node_id": 0,
+                "end_time": 17,
+                "deadline": 56,
+                "start_time": 15,
+                "execution_time": 2
+            }
+        ],
+        "missed_deadlines": [],
+        "name": "LDF Single-node"
+    },
+    "Least Laxity First(LLF)": {
+        "schedule": [
+            {
+                "task_id": 8,
+                "node_id": 1,
+                "end_time": 2,
+                "deadline": 24,
+                "start_time": 0,
+                "execution_time": 2
+            },
+            {
+                "task_id": 3,
+                "node_id": 2,
+                "end_time": 2,
+                "deadline": 26,
+                "start_time": 0,
+                "execution_time": 2
+            },
+            {
+                "task_id": 4,
+                "node_id": 3,
+                "end_time": 2,
+                "deadline": 30,
+                "start_time": 0,
+                "execution_time": 2
+            },
+            {
+                "task_id": 7,
+                "node_id": 4,
+                "end_time": 2,
+                "deadline": 56,
+                "start_time": 0,
+                "execution_time": 2
+            },
+            {
+                "task_id": 0,
+                "node_id": 5,
+                "end_time": 2,
+                "deadline": 60,
+                "start_time": 0,
+                "execution_time": 2
+            },
+            {
+                "task_id": 1,
+                "node_id": 6,
+                "end_time": 9,
+                "deadline": 22,
+                "start_time": 8,
+                "execution_time": 1
+            },
+            {
+                "task_id": 2,
+                "node_id": 1,
+                "end_time": 10,
+                "deadline": 57,
+                "start_time": 8,
+                "execution_time": 2
+            }
+        ],
+        "missed_deadlines": [
+            5
+        ],
+        "name": "Least Laxity First(LLF)"
+    },
+    "EDF Multi-node": {
+        "schedule": [
+            {
+                "task_id": 8,
+                "node_id": 1,
+                "end_time": 2,
+                "deadline": 24,
+                "start_time": 0,
+                "execution_time": 2
+            },
+            {
+                "task_id": 3,
+                "node_id": 2,
+                "end_time": 2,
+                "deadline": 26,
+                "start_time": 0,
+                "execution_time": 2
+            },
+            {
+                "task_id": 4,
+                "node_id": 3,
+                "end_time": 2,
+                "deadline": 30,
+                "start_time": 0,
+                "execution_time": 2
+            },
+            {
+                "task_id": 7,
+                "node_id": 4,
+                "end_time": 2,
+                "deadline": 56,
+                "start_time": 0,
+                "execution_time": 2
+            },
+            {
+                "task_id": 0,
+                "node_id": 5,
+                "end_time": 2,
+                "deadline": 60,
+                "start_time": 0,
+                "execution_time": 2
+            },
+            {
+                "task_id": 1,
+                "node_id": 6,
+                "end_time": 9,
+                "deadline": 22,
+                "start_time": 8,
+                "execution_time": 1
+            },
+            {
+                "task_id": 2,
+                "node_id": 1,
+                "end_time": 10,
+                "deadline": 57,
+                "start_time": 8,
+                "execution_time": 2
+            }
+        ],
+        "missed_deadlines": [
+            5
+        ],
+        "name": "EDF Multi-node"
+    },
+    "LDF Multinode": {
+        "schedule": [
+            {
+                "task_id": 0,
+                "node_id": 1,
+                "end_time": 2,
+                "deadline": 60,
+                "start_time": 0,
+                "execution_time": 2
+            },
+            {
+                "task_id": 1,
+                "node_id": 2,
+                "end_time": 13,
+                "deadline": 22,
+                "start_time": 12,
+                "execution_time": 1
+            },
+            {
+                "task_id": 4,
+                "node_id": 3,
+                "end_time": 2,
+                "deadline": 30,
+                "start_time": 0,
+                "execution_time": 2
+            },
+            {
+                "task_id": 2,
+                "node_id": 4,
+                "end_time": 11,
+                "deadline": 57,
+                "start_time": 9,
+                "execution_time": 2
+            },
+            {
+                "task_id": 8,
+                "node_id": 5,
+                "end_time": 2,
+                "deadline": 24,
+                "start_time": 0,
+                "execution_time": 2
+            },
+            {
+                "task_id": 3,
+                "node_id": 6,
+                "end_time": 2,
+                "deadline": 26,
+                "start_time": 0,
+                "execution_time": 2
+            },
+            {
+                "task_id": 7,
+                "node_id": 1,
+                "end_time": 4,
+                "deadline": 56,
+                "start_time": 2,
+                "execution_time": 2
+            }
+        ],
+        "missed_deadlines": [
+            5
+        ],
+        "name": "LDF Multinode"
+    },
+    "List Scheduling": {
+        "schedule": [
+            {
+                "task_id": 8,
+                "node_id": 1,
+                "end_time": 2,
+                "deadline": 24,
+                "start_time": 0,
+                "execution_time": 2
+            },
+            {
+                "task_id": 3,
+                "node_id": 2,
+                "end_time": 2,
+                "deadline": 26,
+                "start_time": 0,
+                "execution_time": 2
+            },
+            {
+                "task_id": 4,
+                "node_id": 3,
+                "end_time": 2,
+                "deadline": 30,
+                "start_time": 0,
+                "execution_time": 2
+            },
+            {
+                "task_id": 7,
+                "node_id": 4,
+                "end_time": 2,
+                "deadline": 56,
+                "start_time": 0,
+                "execution_time": 2
+            },
+            {
+                "task_id": 0,
+                "node_id": 5,
+                "end_time": 2,
+                "deadline": 60,
+                "start_time": 0,
+                "execution_time": 2
+            },
+            {
+                "task_id": 1,
+                "node_id": 5,
+                "end_time": 3,
+                "deadline": 22,
+                "start_time": 2,
+                "execution_time": 1
+            },
+            {
+                "task_id": 2,
+                "node_id": 1,
+                "end_time": 10,
+                "deadline": 57,
+                "start_time": 8,
+                "execution_time": 2
+            }
+        ],
+        "missed_deadlines": [
+            5
+        ],
+        "name": "List Scheduling"
+    },
+    "EDF Multinode(without delay)": {
+        "schedule": [
+            {
+                "task_id": 8,
+                "node_id": 1,
+                "end_time": 2,
+                "deadline": 24,
+                "start_time": 0,
+                "execution_time": 2
+            },
+            {
+                "task_id": 3,
+                "node_id": 2,
+                "end_time": 2,
+                "deadline": 26,
+                "start_time": 0,
+                "execution_time": 2
+            },
+            {
+                "task_id": 4,
+                "node_id": 3,
+                "end_time": 2,
+                "deadline": 30,
+                "start_time": 0,
+                "execution_time": 2
+            },
+            {
+                "task_id": 7,
+                "node_id": 4,
+                "end_time": 2,
+                "deadline": 56,
+                "start_time": 0,
+                "execution_time": 2
+            },
+            {
+                "task_id": 0,
+                "node_id": 5,
+                "end_time": 2,
+                "deadline": 60,
+                "start_time": 0,
+                "execution_time": 2
+            },
+            {
+                "task_id": 1,
+                "node_id": 6,
+                "end_time": 3,
+                "deadline": 22,
+                "start_time": 2,
+                "execution_time": 1
+            },
+            {
+                "task_id": 2,
+                "node_id": 1,
+                "end_time": 4,
+                "deadline": 57,
+                "start_time": 2,
+                "execution_time": 2
+            },
+            {
+                "task_id": 5,
+                "node_id": 2,
+                "end_time": 5,
+                "deadline": 11,
+                "start_time": 4,
+                "execution_time": 1
+            },
+            {
+                "task_id": 6,
+                "node_id": 3,
+                "end_time": 6,
+                "deadline": 31,
+                "start_time": 5,
+                "execution_time": 1
+            },
+            {
+                "task_id": 9,
+                "node_id": 4,
+                "end_time": 8,
+                "deadline": 17,
+                "start_time": 6,
+                "execution_time": 2
+            }
+        ],
+        "missed_deadlines": [],
+        "name": "EDF Multinode(without delay)"
+    },
+    "LDF Multinode(without delay)": {
+        "schedule": [
+            {
+                "task_id": 0,
+                "node_id": 1,
+                "end_time": 2,
+                "deadline": 60,
+                "start_time": 0,
+                "execution_time": 2
+            },
+            {
+                "task_id": 1,
+                "node_id": 2,
+                "end_time": 3,
+                "deadline": 22,
+                "start_time": 2,
+                "execution_time": 1
+            },
+            {
+                "task_id": 4,
+                "node_id": 3,
+                "end_time": 2,
+                "deadline": 30,
+                "start_time": 0,
+                "execution_time": 2
+            },
+            {
+                "task_id": 2,
+                "node_id": 4,
+                "end_time": 4,
+                "deadline": 57,
+                "start_time": 2,
+                "execution_time": 2
+            },
+            {
+                "task_id": 5,
+                "node_id": 5,
+                "end_time": 5,
+                "deadline": 11,
+                "start_time": 4,
+                "execution_time": 1
+            },
+            {
+                "task_id": 6,
+                "node_id": 6,
+                "end_time": 6,
+                "deadline": 31,
+                "start_time": 5,
+                "execution_time": 1
+            },
+            {
+                "task_id": 9,
+                "node_id": 1,
+                "end_time": 8,
+                "deadline": 17,
+                "start_time": 6,
+                "execution_time": 2
+            },
+            {
+                "task_id": 8,
+                "node_id": 3,
+                "end_time": 4,
+                "deadline": 24,
+                "start_time": 2,
+                "execution_time": 2
+            },
+            {
+                "task_id": 3,
+                "node_id": 2,
+                "end_time": 5,
+                "deadline": 26,
+                "start_time": 3,
+                "execution_time": 2
+            },
+            {
+                "task_id": 7,
+                "node_id": 3,
+                "end_time": 6,
+                "deadline": 56,
+                "start_time": 4,
+                "execution_time": 2
+            }
+        ],
+        "missed_deadlines": [],
+        "name": "LDF Multinode(without delay)"
+    },
+    "LL(without delay)": {
+        "schedule": [
+            {
+                "task_id": 8,
+                "node_id": 1,
+                "end_time": 2,
+                "deadline": 24,
+                "start_time": 0,
+                "execution_time": 2
+            },
+            {
+                "task_id": 3,
+                "node_id": 2,
+                "end_time": 2,
+                "deadline": 26,
+                "start_time": 0,
+                "execution_time": 2
+            },
+            {
+                "task_id": 4,
+                "node_id": 3,
+                "end_time": 2,
+                "deadline": 30,
+                "start_time": 0,
+                "execution_time": 2
+            },
+            {
+                "task_id": 7,
+                "node_id": 4,
+                "end_time": 2,
+                "deadline": 56,
+                "start_time": 0,
+                "execution_time": 2
+            },
+            {
+                "task_id": 0,
+                "node_id": 5,
+                "end_time": 2,
+                "deadline": 60,
+                "start_time": 0,
+                "execution_time": 2
+            },
+            {
+                "task_id": 1,
+                "node_id": 6,
+                "end_time": 3,
+                "deadline": 22,
+                "start_time": 2,
+                "execution_time": 1
+            },
+            {
+                "task_id": 2,
+                "node_id": 1,
+                "end_time": 4,
+                "deadline": 57,
+                "start_time": 2,
+                "execution_time": 2
+            },
+            {
+                "task_id": 5,
+                "node_id": 2,
+                "end_time": 5,
+                "deadline": 11,
+                "start_time": 4,
+                "execution_time": 1
+            },
+            {
+                "task_id": 6,
+                "node_id": 3,
+                "end_time": 6,
+                "deadline": 31,
+                "start_time": 5,
+                "execution_time": 1
+            },
+            {
+                "task_id": 9,
+                "node_id": 4,
+                "end_time": 8,
+                "deadline": 17,
+                "start_time": 6,
+                "execution_time": 2
+            }
+        ],
+        "missed_deadlines": [],
+        "name": "LL(without delay)"
+    }
+}
