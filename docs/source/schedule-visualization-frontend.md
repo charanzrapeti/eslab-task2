@@ -34,7 +34,7 @@ This project is a React-based frontend designed to visualize task schedules alon
   - **Upload JSON File**: Click on the "Upload JSON" button to upload a pre-defined Application model. The  JSON file should follow the input schema defined at [eslab2docs](https://eslab2docs.pages.dev/README#api-input-schema-for-schedule-jobs).
   - **Load Default Json**: Loads default application and platform model.
 
-  - **Saving and Exporting**: Export the updated JSON file containing the application and platform model, including any changes, using the "Download JSON" button. Alternatively, "Save Locally" button allows you to save the models locally which can then be accessed on later page visits by using "Load Last Saved" button.
+  - **Saving and Exporting**: Export the updated JSON file containing the application and platform model, including any changes, using the "Download JSON" button. 
 
 
 ### Creating Application Model
@@ -45,7 +45,7 @@ This project is a React-based frontend designed to visualize task schedules alon
 
   - **Delete Mode**: The tasks and Edges can be deleted by first clicking on the "Delete Mode" button then selecting the task or edge you want to delete.
 
-  - **Generate Random Application Model**: Generate a random application model by entering the number of tasks. 
+  - **Generate Random Application Model**: Generate a random application model by entering the number of tasks, the maximum and minimum WCET for each task, the maximum deadline, and the offset between the WCET and the deadline.
 
   - **Visualizing the Application Model**: The Application model will be displayed as a directed acyclic graph. Nodes represent tasks, and edges represent dependencies between tasks.
 
@@ -57,7 +57,7 @@ This project is a React-based frontend designed to visualize task schedules alon
 
   - **Delete Mode**: The nodes and links can be deleted by first clicking on the "Delete Mode" button then selecting the node or link you want to delete.
 
-  - **Generate Random Platform Model**: Generate a random platform model by entering the number of nodes. 
+  - **Generate Random Platform Model**: Generate a random platform model by entering the number of compute, router, sensor, and actuator nodes, as well as the maximum and minimum link delays for each edge.
 
   - **Visualizing the Platform Model**:The Platform Model will be displayed as a graph. Nodes represent nodes, and edges represent links between the nodes.
 
@@ -82,7 +82,7 @@ This project is a React-based frontend designed to visualize task schedules alon
 
 ### Visualizing Schedules
 
-  - Along with the application and platform model, five different schedules will be fetched from the backend, representing different algorithms.
+  - Along with the application and platform model, nine different schedules will be fetched from the backend, representing different algorithms.
    
   - The resulting schedules will be visualized in a bar graph format.
    
@@ -98,8 +98,11 @@ This project is a React-based frontend designed to visualize task schedules alon
   - Click on the "Fork" button to create a copy of the repository in your GitHub account.
 
 2. **Clone the Repository**
-  - Clone the forked repository to your local machine:
-  - backend: git clone https://github.com/linem-davton/graphdraw-frontend.git
+     - Clone the forked repository to your local machine:
+      ```BASH
+     git clone https://github.com/linem-davton/graphdraw-frontend.git
+     ```
+     
 
 3. **Navigate to the Project Directory**
    - Change to the project directory:
@@ -115,21 +118,21 @@ This project is a React-based frontend designed to visualize task schedules alon
    
 5. **Run the Application**
    - Start the backend server:
-     python src/backend.py
+      ```BASH
+      python src/backend.py
+      ```
+    
 
    - Start the frontend development server:
       ```BASH
       npm run dev
       ```
      
-   - Open your browser and navigate to `http://localhost:5173/` to view the application.
+   - Open your browser and navigate to [http://localhost:3000](http://localhost:3000) to view the application.
 
-6. **Understanding the Project Structure**
-   - Familiarize yourself with the project structure. Key directories include:
-     - `src/` - Contains the React components and application logic.
      
 
-7. **Making Changes**
+6. **Making Changes**
    - Create a new branch for your feature or bugfix:
      git checkout -b feature/your-feature-name
      
@@ -141,12 +144,12 @@ This project is a React-based frontend designed to visualize task schedules alon
       git commit -m "Add feature X"
       ```
 
-- Push your changes to your forked repository:
-    ```BASH
-     git push origin feature
-    ``` 
+   - Push your changes to your forked   repository:
+     ```BASH
+      git push origin feature
+     ``` 
 
-8. **Submitting a Pull Request**
+7. **Submitting a Pull Request**
     - Go to the original repository on GitHub.
     - Click on the "New Pull Request" button.
     - Select your branch and submit the pull request for review.

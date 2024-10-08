@@ -1,9 +1,9 @@
-from src.algorithms import ldf_single_node, edf_single_node, edf_multinode, ll_multinode, ldf_multinode
 import pytest
 import os
 import json
 import jsonschema
 import sys
+import networkx as nx
 
 # Adjust path to include the 'src' directory for importing algorithms
 script_dir = os.path.dirname(__file__)
@@ -18,8 +18,6 @@ with open(output_schema_file) as f:
 
 input_files = os.listdir(input_models_dir)
 
-
-# List of algorithms to test
 algorithms = [ldf_single_node, edf_single_node, edf_multinode, ldf_multinode, ll_multinode]
 algorithms_multinode_no_delay = [edf_multinode, ldf_multinode, ll_multinode]
 
@@ -27,7 +25,6 @@ algorithms_multinode_no_delay = [edf_multinode, ldf_multinode, ll_multinode]
 test_cases = [(input_file, algo) for input_file in input_files for algo in algorithms]
 test_cases_multinode_no_delay = [(input_file, algo)
                                  for input_file in input_files for algo in algorithms_multinode_no_delay]
-
 
 def load_and_schedule(filename, algo):
     """Load the input model and run the scheduling algorithm"""
@@ -40,6 +37,7 @@ def load_and_schedule(filename, algo):
 
     if algo in [ldf_single_node, edf_single_node]:
         result = algo(application_model)
+
 
     elif algo in [edf_multinode, ldf_multinode, ll_multinode]:
         result = algo(application_model, platform_model)
@@ -112,11 +110,11 @@ def test_task_dependencies(filename, algorithm):
         ), f'Task starts before predecessor ends in {result["name"]}'
 
 
+
 @pytest.mark.parametrize("filename, algorithm", test_cases)
 def test_no_overlapping_tasks(filename, algorithm):
     """Test that no tasks overlap in their execution time on the same node."""
     result, application_model, platform_model = load_and_schedule(filename, algorithm)
-
     tasks_by_node = {}
     for task in result["schedule"]:
         node_id = task["node_id"]
@@ -125,7 +123,6 @@ def test_no_overlapping_tasks(filename, algorithm):
         tasks_by_node[node_id].append(task)
 
     for node_id, tasks in tasks_by_node.items():
-
         tasks.sort(key=lambda t: t["start_time"])
         for i in range(1, len(tasks)):
             prev_task = tasks[i - 1]
@@ -134,18 +131,17 @@ def test_no_overlapping_tasks(filename, algorithm):
                 f'Tasks overlap on node {node_id} in {result["name"]}'
 
 
+
 @pytest.mark.parametrize("filename, algorithm", test_cases)
 def test_algorithm_correctness(filename, algorithm):
 
     result, app_model, platform_model = load_and_schedule(filename, algorithm)
 
     expected_results_dir = os.path.join(script_dir, "expected_results")
-
     expected_output_file = os.path.join(expected_results_dir, filename)
 
     with open(expected_output_file) as f:
         expected_output = json.load(f)
-
     actual_schedule = {task["task_id"]: task["start_time"] for task in result["schedule"]}
     print(f'Actual schedule: {actual_schedule}')
 
@@ -160,12 +156,10 @@ def test_algorithm_correctness(filename, algorithm):
 
 @pytest.mark.parametrize("filename, algorithm", test_cases)
 def test_missed_deadline(filename, algorithm):
-
     result, app_model, platform_model = load_and_schedule(filename, algorithm)
     # print(f'results_missed_deadline:{result.get("missed_deadlines", [])}')
 
     expected_results_dir = os.path.join(script_dir, "expected_results")
-
     expected_output_file = os.path.join(expected_results_dir, filename)
 
     with open(expected_output_file) as f:
