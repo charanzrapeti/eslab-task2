@@ -2,29 +2,26 @@ import pytest
 import os
 import json
 import jsonschema
-import sys
-import networkx as nx
+from src.algorithms import ldf_single_node, edf_single_node, edf_multinode_no_delay, ldf_multinode_no_delay, ll_multinode_no_delay
 
 # Adjust path to include the 'src' directory for importing algorithms
 script_dir = os.path.dirname(__file__)
 input_models_dir = os.path.join(script_dir, "input_models")
-
-sys.path.append(os.path.abspath(os.path.join(script_dir, "..", "src")))
 output_schema_file = os.path.join(script_dir, "..", "src", "output_schema.json")
-expected_output_file = os.path.join(script_dir, "..", "tests", "input_file.json")
 
 with open(output_schema_file) as f:
     output_schema = json.load(f)
 
 input_files = os.listdir(input_models_dir)
 
-algorithms = [ldf_single_node, edf_single_node, edf_multinode, ldf_multinode, ll_multinode]
-algorithms_multinode_no_delay = [edf_multinode, ldf_multinode, ll_multinode]
+algorithms = [ldf_single_node, edf_single_node, edf_multinode_no_delay, ldf_multinode_no_delay, ll_multinode_no_delay]
+algorithms_multinode_no_delay = [edf_multinode_no_delay, ldf_multinode_no_delay, ll_multinode_no_delay]
 
 # Creating a product of filenames and algorithms for detailed parameterization
 test_cases = [(input_file, algo) for input_file in input_files for algo in algorithms]
 test_cases_multinode_no_delay = [(input_file, algo)
                                  for input_file in input_files for algo in algorithms_multinode_no_delay]
+
 
 def load_and_schedule(filename, algo):
     """Load the input model and run the scheduling algorithm"""
@@ -38,8 +35,7 @@ def load_and_schedule(filename, algo):
     if algo in [ldf_single_node, edf_single_node]:
         result = algo(application_model)
 
-
-    elif algo in [edf_multinode, ldf_multinode, ll_multinode]:
+    elif algo in [edf_multinode_no_delay, ldf_multinode_no_delay, ll_multinode_no_delay]:
         result = algo(application_model, platform_model)
 
     return result, application_model, platform_model
@@ -110,7 +106,6 @@ def test_task_dependencies(filename, algorithm):
         ), f'Task starts before predecessor ends in {result["name"]}'
 
 
-
 @pytest.mark.parametrize("filename, algorithm", test_cases)
 def test_no_overlapping_tasks(filename, algorithm):
     """Test that no tasks overlap in their execution time on the same node."""
@@ -129,7 +124,6 @@ def test_no_overlapping_tasks(filename, algorithm):
             current_task = tasks[i]
             assert prev_task["end_time"] <= current_task["start_time"], \
                 f'Tasks overlap on node {node_id} in {result["name"]}'
-
 
 
 @pytest.mark.parametrize("filename, algorithm", test_cases)
