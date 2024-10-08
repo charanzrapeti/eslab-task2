@@ -68,7 +68,7 @@ def ldf_single_node(application_data):
                       and start/end times relative to other jobs.
     """
 
-    return {"schedule": example_schedule, "name": "LDF Single Node"}
+    return {"schedule": example_schedule, "missed_deadlines": [], "name": "LDF Single-node"}
 
 
 def edf_single_node(application_data):
@@ -89,10 +89,10 @@ def edf_single_node(application_data):
                       and the job's deadline.
     """
 
-    return {"schedule": example_schedule, "name": "EDF Single Node"}
+    return {"schedule": example_schedule, "missed_deadlines": [], "name": "EDF Single-node"}
 
 
-def ll_multinode(application_data, platform_data):
+def ll_multinode_no_delay(application_data, platform_data):
     """
     Schedule jobs on a distributed system with multiple compute nodes using the Least Laxity (LL) strategy.
     This function schedules jobs based on their laxity, with the job having the least laxity being scheduled first.
@@ -107,10 +107,10 @@ def ll_multinode(application_data, platform_data):
                       and the job's deadline.
 
     """
-    return {"schedule": example_schedule, "name": "LL Multi Node"}
+    return {"schedule": example_schedule, "missed_deadlines": [], "name": "LL(without delay)"}
 
 
-def ldf_multinode(application_data, platform_data):
+def ldf_multinode_no_delay(application_data, platform_data):
     """
     Schedule jobs on a distributed system with multiple compute nodes using the Latest Deadline First(LDF) strategy.
     This function schedules jobs based on their periods and deadlines, with the shortest period job being scheduled first.
@@ -126,10 +126,10 @@ def ldf_multinode(application_data, platform_data):
                       and the job's deadline.
 
     """
-    return {"schedule": example_schedule, "name": "LDF Multi Node"}
+    return {"schedule": example_schedule, "missed_deadlines": [], "name": "LDF Multinode(without delay)"}
 
 
-def edf_multinode(application_data, platform_data):
+def edf_multinode_no_delay(application_data, platform_data):
     """
     Schedule jobs on a distributed system with multiple compute nodes using the Earliest Deadline First (EDF) strategy.
     This function processes application data to schedule jobs based on the earliest
@@ -146,4 +146,4 @@ def edf_multinode(application_data, platform_data):
                       and the job's deadline.
 
     """
-    return {"schedule": example_schedule, "name": "EDF Multi Node"}
+    return {"schedule": example_schedule, "missed_deadlines": [], "name": "EDF Multinode(without delay)"}
