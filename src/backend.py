@@ -93,18 +93,19 @@ def schedule_jobs(data: dict):
     platform_data = data.get("platform")
 
     ldf_single_node = alg.ldf_single_node(application_data)
-    edf_single_node = alg.edf_single_node(application_data)
-    ll_multinode = alg.ll_multinode(application_data, platform_data)
-    ldf_multinode = alg.ldf_multinode(application_data, platform_data)
-    edf_multinode = alg.edf_multinode(application_data, platform_data)
+    edfsingle_node = alg.edf_single_node(application_data)
+    edf_multinode_no_delay = alg.edf_multinode_no_delay(application_data, platform_data)
+    ldf_multinode_no_delay = alg.ldf_multinode_no_delay(application_data, platform_data)
+    ll_multinode_no_delay = alg.ll_multinode_no_delay(application_data, platform_data)
 
     response = {
-        "schedule1": ldf_single_node,
-        "schedule2": edf_single_node,
-        "schedule3": ll_multinode,
-        "schedule4": ldf_multinode,
-        "schedule5": edf_multinode,
+        "edfsingle_node": edfsingle_node,
+        "ldf_single_node": ldf_single_node,
+        "edf_multinode_no_delay": edf_multinode_no_delay,
+        "ldf_multinode_no_delay": ldf_multinode_no_delay,
+        "ll_multinode_no_delay": ll_multinode_no_delay
     }
+
     # Validate the schedules as per output schema
     try:
         for key, value in response.items():
