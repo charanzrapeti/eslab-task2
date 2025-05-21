@@ -11,9 +11,6 @@ Endpoints:
 See the function docstrings within this module for more detailed API documentation.
 """
 
-__author__ = "Utkarsh Raj"
-__version__ = "1.0.0"
-
 
 import json
 import os
