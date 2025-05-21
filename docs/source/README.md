@@ -16,12 +16,12 @@ This repository contains the backend server for the Task Scheduling front-end. T
 
 1. Clone the repository:
 ``` BASH
-    git clone [https://github.com/linem-davton/graphdraw-eslab-backend.git
+    git clone https://github.com/EmbeddedSystems-UniversitySiegen/eslab-task2
 ```
 
 2. Navigate to the project directory:
     ``` BASH
-      cd graphdraw-eslab-backend
+      cd eslab-task2
     ```
 
 3. Install dependencies:
@@ -42,7 +42,7 @@ This repository contains the backend server for the Task Scheduling front-end. T
 
 6. To access the API documentation, go to http://localhost:8000/docs.
 
-7. Visit the frontend at [eslab2.pages.dev](https://eslab2.pages.dev/), and input the logical and platform model as defined in input schema to schedule tasks.
+7. Visit the frontend at [eslab2.pages.dev](https://eslab2.pages.dev/), and input the logical and platform model as defined in the input schema to schedule tasks.
 
 ## Technologies Used
 
