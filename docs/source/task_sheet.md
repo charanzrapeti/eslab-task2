@@ -1,4 +1,3 @@
-
 # Lab 2 - Scheduling algorithms for Real Time Systems
 
 ## Introduction
@@ -40,7 +39,7 @@ Directed Acyclic Graph (DAG) is an incredibly valuable instrument for representi
 
 In DAGs used for scheduling, each node represents an individual task or task. These tasks often have associated attributes like duration, resource requirements, or deadlines. The directed edges between the nodes represent the precedence constraints. An edge from node A to node B implies that task A must be completed before task B can start. This directionality is critical for ensuring tasks are performed in the correct order. The acyclic property of DAGs is crucial in scheduling because it guarantees that there are no circular dependencies, which would make scheduling impossible. In practical terms, this means there can be no situation where task A depends on task B while task B simultaneously depends on task A, either directly or indirectly.
 
-![alt text](./images/image-2.png)
+![alt text](./images/application.png)
 
 *Figure 2: A directed acyclic graph (DAG) shows precedences, showing that process 1 must complete before processes 2 and 3 can be started, etc.*
 
@@ -100,7 +99,7 @@ Algorithms like Dijkstra's Algorithm find the shortest path from a single source
 
                         
 #### Minimum Spanning Tree of a graph
-[Minimum Spanning Tree (MST)](https://www.geeksforgeeks.org/prims-minimum-spanning-tree-mst-greedy-algo-5/) of a graph is a fundamental concept in graph theory used primarily in network design and optimization. The MST is a subset of the edges of a weighted, undirected graph that connects all the vertices together without any cycles and with the minimal possible total edge weight. This tree spans all the vertices in the graph, meaning that every vertex is included, making it a spanning tree. The minimum aspect refers to the sum of the weights of the edges in the tree being as small as possible. There are several algorithms available to find an MST in a graph, with Kruskal's Algorithm and Prim's Algorithm being the most prominent. Consider a graph where the vertices represent cities, and the edges represent possible roads between them, with weights indicating the cost to build. An MST would provide a way to connect all the cities while minimizing the total construction cost. This could be crucial for governmental budgeting and planning in infrastructure projects.
+[Minimum Spanning Tree (MST)](https://www.geeksforgeeks.org/prims-minimum-spanning-tree-mst-greedy-algo-5/) of a graph is a fundamental concept in graph theory used primarily in network design and optimization. The MST is a subset of the edges of a weighted, undirected graph that connects all the vertices without any cycles and with the minimal possible total edge weight. This tree spans all the vertices in the graph, meaning that every vertex is included, making it a spanning tree. The minimum aspect refers to the sum of the weights of the edges in the tree being as small as possible. There are several algorithms available to find an MST in a graph, with Kruskal's Algorithm and Prim's Algorithm being the most prominent. Consider a graph where the vertices represent cities, and the edges represent possible roads between them, with weights indicating the cost to build. An MST would provide a way to connect all the cities while minimizing the total construction cost. This could be crucial for governmental budgeting and planning in infrastructure projects.
 
 ### Application and Platform Models
 
@@ -119,41 +118,41 @@ In multi-node scheduling, the tasks can be distributed across different compute 
 
 ## Tasks
 
-- Implement the following [scheduling algorithms](scheduling_algorithms.md) as outlined in the [to-do list](todo.rst). These algorithms should take json inputs describing the platform model and application model. The input json conforms to the JSON schema defined in the [input json schema](README.md#api-input-schema-for-schedule-jobs). They should produce a schedule output that adheres to the JSON schema defined in the [output json schema](README.md#output-schema-for-schedule-jobs).
+- Implement the following [scheduling algorithms](scheduling_algorithms.md) as outlined in the [to-do list](todo.rst). These algorithms should take JSON inputs describing the platform model and application model. The input JSON conforms to the JSON schema defined in the [input JSON schema](README.md#api-input-schema-for-schedule-jobs). They should produce a schedule output that adheres to the JSON schema defined in the [output json schema](README.md#output-schema-for-schedule-jobs).
     - Latest Deadline First Single Node (LDF).
     - Earliest Deadline First Single Node (EDF).
     - Least Laxity Multi Node (LLF).
-    - Latest Deadline First Multi Node.
-    - Earliest Deadline First Multi Node.
+    - Latest Deadline First Multi-Node.
+    - Earliest Deadline First Multi-Node.
 
-- Test your implementation using the provided test cases. The test cases are designed to evaluate the correctness of your scheduling algorithms. Ensure that your implementation passes all the test cases. Run the tests using the following command from the root of project directory:
+- Test your implementation using the provided test cases. The test cases are designed to evaluate the correctness of your scheduling algorithms. Ensure that your implementation passes all the test cases. Run the tests using the following command from the root of the project directory:
   ``` BASH
     pytest
   ```
-  To automatically run the tests after each change in algorithm, you can run the following command from the project root directory:
+  To automatically run the tests after each algorithm change, you can run the following command from the project root directory:
 
   ``` BASH
     pip install pytest-watch
     ptw
   ```
-- You can verify your code at [solution verification](https://eslab.es.eti.uni-siegen.de/verify/2/).  Upload your algorithms.py file or copy-paste the code in the text box and click on the *Run Tests* button. 
+- You can verify your code in [codespace](https://eslab.es.eti.uni-siegen.de/codespace/eslab/estask2).
 
 - For this lab, you can ignore the link delay and bandwidth fields in the platform model. You can assume that the communication between the nodes is instantaneous. There is no bandwidth constraint, and all nodes are connected to a single router. However, as a bonus, you are encouraged to consider the link delays and communication paths as defined in the platform model.
 
 
 ## Documentation and Reporting
 
-As you test and optimize, document your findings. Note down what worked, what did not,and how you adjusted your approach. This documentation will be invaluable for your final report and provides a clear record of your problem solving process. Testing and optimization are as much a part of the learning process as the initial development. They provide insight into the practical challenges and the importance of iterative design.
+As you test and optimize, document your findings. Note down what worked, what did not, and how you adjusted your approach. This documentation will be invaluable for your final report and provides a clear record of your problem solving process. Testing and optimization are as much a part of the learning process as the initial development. They provide insight into the practical challenges and the importance of iterative design.
 
 ### Documenting Code
 
-- **Code Comments**:Include comprehensive comments throughout your python code. Explain the purpose of functions, logic behind critical sections, and meanings of key variables. Use inline comments for complex lines of code to clarify their functionality.
+- **Code Comments **: Include comprehensive comments throughout your Python code. Explain the purpose of functions, logic behind critical sections, and meanings of key variables. Use inline comments for complex lines of code to clarify their functionality.
 
-- **Readable Structure**:Organize your code  logically. Group related functionalities into functions or classes and use clear, descriptive names for variables and functions. Ensure your script follows a consistent coding style for ease of reading and maintenance.
+- **Readable Structure **: Organize your code  logically. Group related functionalities into functions or classes and use clear, descriptive names for variables and functions. Ensure your script follows a consistent coding style for ease of reading and maintenance.
 
 ### Writing Lab Report
  
-Use the cover sheet template/report template provided by in moodle.
+Use the cover sheet template/report template provided in Moodle.
 
 - Only the title page should show the logos in the header
 - Use proper paper geometry, e.g., margins: right, left, top 2.5 cm, bottom 2 cm.
@@ -161,10 +160,10 @@ Use the cover sheet template/report template provided by in moodle.
 
 #### Goal of the report:
 
-- The report summarizes and presents your work on the exercises and answers all given questions from the task sheets
+- The report summarizes and presents your work on the exercises and answers all the given questions from the task sheets
 - Use proper line of arguments
-- In a step by step procedure, the report introduces the task, raises the questions, shows the solutions (including necessary intermediate results) and makes conclusions
-- Readers (e.g., other students, supervisors and the professor) who have not attended the course and do not know about any implementations must be able to understand the report.
+- In a step-by-step procedure, the report introduces the task, raises the questions, shows the solutions (including necessary intermediate results), and draws conclusions
+- Readers (e.g., other students, supervisors, and the professor) who have not attended the course and do not know about any implementations must be able to understand the report.
 
 #### In the report
 
@@ -175,7 +174,7 @@ Use the cover sheet template/report template provided by in moodle.
 
 ##### When presenting a plot or a figure
 
-- Carefully decide, what you intend to show/highlight/demonstrate with the figure
+- Carefully decide what you intend to show/highlight/demonstrate with the figure
 - Introduce the figure with direct referencing in the text (e.g., Figure 1 shows …)
 - Center the figure horizontally
 - Label the figure
@@ -183,11 +182,11 @@ Use the cover sheet template/report template provided by in moodle.
 - Use a grid if necessary
 - Use multiple colors or types for different lines within a plot
 - Use a legend if necessary
-- Describe plots and figures in detail, especially focus on the signal characteristics
+- Describe plots and figures in detail, especially focusing on the signal characteristics
 - Provide explanations for your plot descriptions
 - Make conclusions from the plot
 - Figures and tables should be upright if possible, so that the reader does not need to rotate the page
-- Use appropriate file formats for figures (e.g. latex: eps, pdf, svg; word: emf, wmf, svg, (large-scaled png))
+- Use appropriate file formats for figures (e.g., LaTeX: eps, pdf, svg; Word: emf, wmf, svg, (large-scaled PNG))
 
 ##### When presenting a formula/equation
 
@@ -195,7 +194,7 @@ Use proper visualization, e.g., in MS Word use the equation editor (insert -> eq
 - Center equations horizontally
 - Number the equation
 - Use only symbols in equations and no written words
-- Explain all used symbols in the text after the equation. The symbols should have the same font and should not look different (compare: $\beta$ and β).
+- Explain all symbols used in the text after the equation. The symbols should have the same font and should not look different (compare: $\beta$ and β).
 
 ##### Hand in the report and all necessary working files
 
@@ -203,21 +202,20 @@ Use proper visualization, e.g., in MS Word use the equation editor (insert -> eq
 - The report should be a single document file covering the complete exercise.
 - Provide commented programming code/modeling files along with your report (.py files).
 - The programs must run without errors.
-- Prepare zipped archive (.zip, .rar, .7z, etc.) containing all working files and the report
-- Upload the zipped archive to the moodle platform.
+- Upload the report on [codespace](https://eslab.es.eti.uni-siegen.de/codespace/eslab/estask2)
 
 ## Deliverables
 
-- algorithms.py file with scheduling algorithm implemented.
-- Lab report in pdf format.
+- The algorithms.py file with the scheduling algorithm implemented.
+- Lab report in PDF format.
 
 ## Evaluation Criterion
 
 - Well-structured and logically organized code.
 - Comprehensive comments explaining the purpose and logic of the code.
 - Quality of the report.
-- Test by uploading algorithms.py file in [solution verification](https://eslab.es.eti.uni-siegen.de/verify/2/). 
-- All the 60 tests should pass for final submission. The provided sample code already pass 35 out of 60 tests. 
+- All tests in [codespace](https://eslab.es.eti.uni-siegen.de/codespace/eslab/estask2) should pass. 
+ 
 ## References
 - [Introduction to Graph Theory](https://www.baeldung.com/csgraph-theory-intro#8-the-weighted-graph)
 - [Basic Components, Shortest path, Search algorithms, Minimum Spanning Tree](https://www.geeksforgeeks.org/transpose-graph/?ref=lbp)
