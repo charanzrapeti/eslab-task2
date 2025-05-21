@@ -12,9 +12,6 @@ Functions:
 - edf_multicore: Schedules tasks on multiple cores using EDF.
 """
 
-__author__ = "Priya Nagar"
-__version__ = "1.0.0"
-
 
 import networkx as nx
 
