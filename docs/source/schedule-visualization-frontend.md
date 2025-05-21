@@ -29,7 +29,7 @@ This project is a React-based frontend designed to visualize task schedules alon
 ## For Users
  ### Accessing the Application
 
-  - Accesible at [eslab2.pages.dev](https://eslab2.pages.dev/).
+  - Accesible at [Distributed Scheduling](https://eslab.es.eti.uni-siegen.de/eslab2/index.html).
 
   - **Upload JSON File**: Click on the "Upload JSON" button to upload a pre-defined Application model. The  JSON file should follow the input schema defined at [eslab2docs](https://eslab2docs.pages.dev/README#api-input-schema-for-schedule-jobs).
   - **Load Default Json**: Loads default application and platform model.
