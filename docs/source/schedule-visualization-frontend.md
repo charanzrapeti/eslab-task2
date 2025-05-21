@@ -1,7 +1,7 @@
 
 # Schedule Visualization Frontend
 
-This project is a React-based frontend designed to visualize task schedules along with Application and Platform model. It interfaces with a backend server, with the configuration specified in `config.json`, and is accessible at [eslab2.pages.dev](https://eslab2.pages.dev)
+This project is a React-based frontend designed to visualize task schedules along with Application and Platform model. It interfaces with a backend server, with the configuration specified in `config.json`, and is accessible via [eslab2.pages.dev](https://eslab2.pages.dev) for local servers and [codespace servers](https://eslab.es.eti.uni-siegen.de/eslab2/index.html).
 
 
 ## Table of Contents
