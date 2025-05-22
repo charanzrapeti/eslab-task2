@@ -151,50 +151,8 @@ As you test and optimize, document your findings. Note down what worked, what di
 - **Readable Structure**: Organize your code  logically. Group related functionalities into functions or classes and use clear, descriptive names for variables and functions. Ensure your script follows a consistent coding style for ease of reading and maintenance.
 
 ### Writing Lab Report
- 
-Use the cover sheet template/report template provided in Moodle.
 
-- Only the title page should show the logos in the header
-- Use proper paper geometry, e.g., margins: right, left, top 2.5 cm, bottom 2 cm.
-- Font size 11-12, line spacing between 1.15 and 1.5.
-
-#### Goal of the report:
-
-- The report summarizes and presents your work on the exercises and answers all the given questions from the task sheets
-- Use proper line of arguments
-- In a step-by-step procedure, the report introduces the task, raises the questions, shows the solutions (including necessary intermediate results), and draws conclusions
-- Readers (e.g., other students, supervisors, and the professor) who have not attended the course and do not know about any implementations must be able to understand the report.
-
-#### In the report
-
-- Use meaningful headings for different sections (headings should be numbered and larger than the text, not bold and not underlined)
-- Use table of contents (and list of figures)
-- Number the pages
-- When answering the questions, number and repeat the questions before providing answers below each corresponding question.
-
-##### When presenting a plot or a figure
-
-- Carefully decide what you intend to show/highlight/demonstrate with the figure
-- Introduce the figure with direct referencing in the text (e.g., Figure 1 shows …)
-- Center the figure horizontally
-- Label the figure
-- Label the axes (description and unit), appropriate font size
-- Use a grid if necessary
-- Use multiple colors or types for different lines within a plot
-- Use a legend if necessary
-- Describe plots and figures in detail, especially focusing on the signal characteristics
-- Provide explanations for your plot descriptions
-- Make conclusions from the plot
-- Figures and tables should be upright if possible, so that the reader does not need to rotate the page
-- Use appropriate file formats for figures (e.g., LaTeX: eps, pdf, svg; Word: emf, wmf, svg, (large-scaled PNG))
-
-##### When presenting a formula/equation
-
-Use proper visualization, e.g., in MS Word use the equation editor (insert -> equation) or use the LaTeX equation option
-- Center equations horizontally
-- Number the equation
-- Use only symbols in equations and no written words
-- Explain all symbols used in the text after the equation. The symbols should have the same font and should not look different (compare: $\beta$ and β).
+ For detailed lab report formatting and submission instructions, refer to the [report guidelines](ES_Guidelines_for_Lab_report.md).
 
 ##### Hand in the report and all necessary working files
 
