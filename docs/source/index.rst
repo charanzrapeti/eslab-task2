@@ -10,6 +10,7 @@ Welcome to Embedded Systems Lab!
   schedule-visualization-frontend.md
   scheduling_algorithms.md
   todo.rst
+  ES_Guidelines_for_Lab_report.md
   modules.rst
 
 Indices and Tables
