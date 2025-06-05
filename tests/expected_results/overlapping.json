@@ -5,7 +5,7 @@
                 "task_id": 1,
                 "node_id": 0,
                 "end_time": 10,
-                "deadline": 500,
+                "deadline": 404,
                 "start_time": 0,
                 "execution_time": 10
             },
@@ -13,7 +13,7 @@
                 "task_id": 2,
                 "node_id": 0,
                 "end_time": 18,
-                "deadline": 500,
+                "deadline": 421,
                 "start_time": 10,
                 "execution_time": 8
             },
@@ -21,7 +21,7 @@
                 "task_id": 4,
                 "node_id": 0,
                 "end_time": 32,
-                "deadline": 500,
+                "deadline": 503,
                 "start_time": 18,
                 "execution_time": 14
             },
@@ -48,26 +48,26 @@
     "LDF Single-node": {
         "schedule": [
             {
-                "task_id": 2,
-                "node_id": 0,
-                "end_time": 8,
-                "deadline": 500,
-                "start_time": 0,
-                "execution_time": 8
-            },
-            {
                 "task_id": 1,
                 "node_id": 0,
-                "end_time": 18,
-                "deadline": 500,
-                "start_time": 8,
+                "end_time": 10,
+                "deadline": 404,
+                "start_time": 0,
                 "execution_time": 10
+            },
+            {
+                "task_id": 2,
+                "node_id": 0,
+                "end_time": 18,
+                "deadline": 421,
+                "start_time": 10,
+                "execution_time": 8
             },
             {
                 "task_id": 4,
                 "node_id": 0,
                 "end_time": 32,
-                "deadline": 500,
+                "deadline": 503,
                 "start_time": 18,
                 "execution_time": 14
             },
@@ -97,7 +97,7 @@
                 "task_id": 1,
                 "node_id": 0,
                 "end_time": 10,
-                "deadline": 500,
+                "deadline": 404,
                 "start_time": 0,
                 "execution_time": 10
             },
@@ -105,7 +105,7 @@
                 "task_id": 2,
                 "node_id": 1,
                 "end_time": 8,
-                "deadline": 500,
+                "deadline": 421,
                 "start_time": 0,
                 "execution_time": 8
             },
@@ -113,7 +113,7 @@
                 "task_id": 4,
                 "node_id": 1,
                 "end_time": 22,
-                "deadline": 500,
+                "deadline": 503,
                 "start_time": 8,
                 "execution_time": 14
             },
@@ -140,32 +140,32 @@
     "LDF Multinode(without delay)": {
         "schedule": [
             {
-                "task_id": 2,
-                "node_id": 0,
-                "end_time": 8,
-                "deadline": 500,
-                "start_time": 0,
-                "execution_time": 8
-            },
-            {
                 "task_id": 1,
-                "node_id": 1,
+                "node_id": 0,
                 "end_time": 10,
-                "deadline": 500,
+                "deadline": 404,
                 "start_time": 0,
                 "execution_time": 10
             },
             {
+                "task_id": 2,
+                "node_id": 1,
+                "end_time": 8,
+                "deadline": 421,
+                "start_time": 0,
+                "execution_time": 8
+            },
+            {
                 "task_id": 4,
-                "node_id": 0,
+                "node_id": 1,
                 "end_time": 22,
-                "deadline": 500,
+                "deadline": 503,
                 "start_time": 8,
                 "execution_time": 14
             },
             {
                 "task_id": 5,
-                "node_id": 1,
+                "node_id": 0,
                 "end_time": 26,
                 "deadline": 558,
                 "start_time": 10,
@@ -173,7 +173,7 @@
             },
             {
                 "task_id": 3,
-                "node_id": 0,
+                "node_id": 1,
                 "end_time": 28,
                 "deadline": 811,
                 "start_time": 22,
@@ -186,43 +186,43 @@
     "LL(without delay)": {
         "schedule": [
             {
-                "task_id": 4,
-                "node_id": 0,
-                "end_time": 14,
-                "deadline": 500,
-                "start_time": 0,
-                "execution_time": 14
-            },
-            {
                 "task_id": 1,
-                "node_id": 1,
+                "node_id": 0,
                 "end_time": 10,
-                "deadline": 500,
+                "deadline": 404,
                 "start_time": 0,
                 "execution_time": 10
             },
             {
                 "task_id": 2,
                 "node_id": 1,
-                "end_time": 18,
-                "deadline": 500,
-                "start_time": 10,
+                "end_time": 8,
+                "deadline": 421,
+                "start_time": 0,
                 "execution_time": 8
+            },
+            {
+                "task_id": 4,
+                "node_id": 1,
+                "end_time": 22,
+                "deadline": 503,
+                "start_time": 8,
+                "execution_time": 14
             },
             {
                 "task_id": 5,
                 "node_id": 0,
-                "end_time": 30,
+                "end_time": 26,
                 "deadline": 558,
-                "start_time": 14,
+                "start_time": 10,
                 "execution_time": 16
             },
             {
                 "task_id": 3,
                 "node_id": 1,
-                "end_time": 24,
+                "end_time": 28,
                 "deadline": 811,
-                "start_time": 18,
+                "start_time": 22,
                 "execution_time": 6
             }
         ],

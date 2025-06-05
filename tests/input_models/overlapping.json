@@ -5,13 +5,13 @@
         "id": 1,
         "wcet": 10,
         "mcet": 5,
-        "deadline": 500
+        "deadline": 404
       },
       {
         "id": 2,
         "wcet": 8,
         "mcet": 5,
-        "deadline": 500
+        "deadline": 421
       },
       {
         "id": 3,
@@ -23,7 +23,7 @@
         "id": 4,
         "wcet": 14,
         "mcet": 5,
-        "deadline": 500
+        "deadline": 503
       },
       {
         "id": 5,
