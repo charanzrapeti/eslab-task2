@@ -5,7 +5,7 @@
         "id": 1,
         "wcet": 10,
         "mcet": 5,
-        "deadline": 500
+        "deadline": 404
       },
       {
         "id": 2,
