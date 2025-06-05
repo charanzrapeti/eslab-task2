@@ -11,7 +11,7 @@
         "id": 2,
         "wcet": 8,
         "mcet": 5,
-        "deadline": 500
+        "deadline": 420
       },
       {
         "id": 3,
@@ -23,7 +23,7 @@
         "id": 4,
         "wcet": 14,
         "mcet": 5,
-        "deadline": 500
+        "deadline": 502
       },
       {
         "id": 5,
