@@ -347,9 +347,9 @@ The Latest Deadline First (LDF) scheduling algorithm for a single node prioritiz
 
 - Among the tasks that can be scheduled, the task with the latest deadline is selected for execution. This ensures that tasks with the furthest deadlines are given priority.
 
-#### Task Execution
+#### Building Schedule
 
-- Once a task is selected, it is scheduled for execution on the single computational node. The start time is determined based on the completion time of the previously scheduled task, ensuring no overlap.
+- At each step, from the current set of **schedulable tasks**, select the one with the latest absolute deadline. Ties are broken using a deterministic secondary key, i.e, the lowest task ID.
 
 #### Dependency Management
 
@@ -359,11 +359,17 @@ The Latest Deadline First (LDF) scheduling algorithm for a single node prioritiz
 
 - The scheduling process iterates through the available tasks, continuously selecting and scheduling tasks based on their latest deadlines. The system dynamically updates the status of tasks and their dependencies, ensuring that at each step, the task with the latest deadline is chosen.
 
+
+#### Execution Times
+
+- Tasks are executed in order defined by the schedule list, with the earliest possible start time. 
+
 #### Handling Task Completion and Deadlines
 
-- The end time of each task is calculated based on its Worst-Case Execution Time (WCET). If a task's completion time exceeds its deadline, it is marked as a missed deadline. The algorithm continues this process until all tasks are scheduled.
+- The end time of each task is calculated based on its Worst-Case Execution Time (WCET). If this end time exceeds the task’s deadline, the task is marked as a deadline miss, and all of its successors (tasks that depend on it) are excluded from further scheduling, as their execution would violate dependency correctness.
 
-This method maximizes the utilization of available time before their deadlines, while allowing tasks with earlier deadlines to be handled with the flexibility provided by scheduling tasks with later deadlines first. The LDF algorithm is particularly useful in scenarios where tasks with later deadlines are more critical or have higher priority for completion.
+
+This method maximizes the utilization of available time before their deadlines, while allowing tasks with earlier deadlines to be handled with the flexibility provided by scheduling tasks with later deadlines first. 
 
 #### Example
 
