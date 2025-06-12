@@ -447,34 +447,22 @@ The Earliest Deadline First (EDF) Multi-Node (Without Communication Delay) algor
 
 ### Scheduling Mechanism
 
-#### Initialization
+#### Building Schedule List
 
-- **Identify Root Tasks:** The algorithm begins by identifying tasks with no dependencies (root tasks) and schedules them for execution on available nodes immediately.
+- The schedule list is computed in the same manner as in the *single-node* case.
 
 #### Node Selection
 
-- Tasks are assigned to computational nodes based on their availability, prioritizing the earliest available node for execution.
+- Tasks are assigned to computational nodes based on their availability, prioritizing the earliest available node for execution, breaking the tie based on the lowest *node id*.
 
-#### Task Distribution and Execution
+#### Execution Times
 
-- Once root tasks are completed, their dependent tasks are checked. Among these, the task with the earliest deadline is selected for execution.
-- Tasks are scheduled on nodes based on the earliest available time, allowing independent tasks to execute concurrently across nodes.
-
-#### Managing Dependencies
-
-- The algorithm continuously monitors dependencies between tasks, only allowing a task to be scheduled once all its predecessors have finished executing.
-- Task dependencies are respected, and the availability of a task for scheduling is updated dynamically as the schedule progresses.
+- The algorithm iterates over the **schedule list** and for each task, the start time is the earliest possible time determined by the nodes' availability and the completion of its dependent tasks.
+- Task end times are calculated using the Worst-Case Execution Time (WCET) of the task. If a task's end time exceeds its deadline, it is flagged as a missed deadline, and all its successors are excluded from scheduling to preserve dependency correctness.
 
 #### Handling Concurrent Execution
 
-- Multiple tasks that are independent of each other can be scheduled for execution concurrently on different nodes, taking advantage of parallel processing capabilities.
-- This concurrent execution improves scheduling efficiency and increases the likelihood of meeting task deadlines.
-
-#### Scheduling and Deadline Management
-
-- The start time of each task is determined by the completion time of its preceding tasks, along with the availability of the node.
-- Task end times are calculated using the Worst-Case Execution Time (WCET) of the task. If a task's end time exceeds its deadline, it is flagged as a missed deadline.
-- By consistently prioritizing tasks with the earliest deadlines, the algorithm seeks to minimize missed deadlines.
+- Multiple tasks that are independent of each other should be scheduled for execution concurrently on different nodes.
 
 ### Example
 
