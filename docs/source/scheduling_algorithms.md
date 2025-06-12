@@ -12,20 +12,20 @@ The scheduling algorithms covered and to be implemented are:
 
 ![Application Model](./images/application.png)
 
-The application model is illustrated as a Directed Acyclic Graph (DAG), highlighting the tasks and their dependencies. Nodes within the DAG represent individual tasks, each annotated with attributes such as deadlines and worst case execution times. Directed edges between nodes depict the dependency relationships among tasks, signifying that a task can only commence once all its prerequisite tasks (predecessors) have been completed.
+The application model is illustrated as a Directed Acyclic Graph (DAG), highlighting the tasks and their dependencies. Nodes within the DAG represent individual tasks, each annotated with attributes such as deadlines and worst-case execution times. Directed edges between nodes depict the dependency relationships among tasks, signifying that a task can only commence once all its prerequisite tasks (predecessors) have been completed.
 
 ## Platform Model
 
 ![Platform Model](./images/platform.png)
-The platform model features multiple nodes, each with different roles including compute nodes, routers, sensors, and actuators. Tasks are distributed across these nodes, and the scheduling decisions are made based on task deadlines and dependencies, ensuring that tasks are executed in accordance with their timing constraints. The model supports parallel task execution on multiple compute nodes, with data transmission facilitated by routers and interactions with the physical environment managed by sensors and actuators. This setup allows for complex, distributed scheduling scenarios, reflecting a realistic multi-node platform environment
+The platform model features multiple nodes, each with different roles, including compute nodes, routers, sensors, and actuators. Tasks are distributed across these nodes, and the scheduling decisions are made based on task deadlines and dependencies, ensuring that tasks are executed in accordance with their timing constraints. The model supports parallel task execution on multiple compute nodes, with data transmission facilitated by routers and interactions with the physical environment managed by sensors and actuators. This setup allows for complex, distributed scheduling scenarios, reflecting a realistic multi-node platform environment
 
 ## JSON Input
 
-The input to the scheduling algorithms is a JSON object that describes the application and platform models. The application model includes tasks and messages, while the platform model includes nodes and links. The JSON input contains following objects and should conform to the [input JSON schema](./input_schema.json).
+The input to the scheduling algorithms is a JSON object that describes the application and platform models. The application model includes tasks and messages, while the platform model includes nodes and links. The JSON input contains the following objects and should conform to the [input JSON schema](./input_schema.json).
 
 - **Tasks**: Represent the tasks to be scheduled.
 - **Messages**: Represent dependencies between tasks.
-- **Nodes**: Represent the either a compute node where tasks can be executed or router in the network or a sensor or a actuators.
+- **Nodes**: Represent either a compute node where tasks can be executed or router in the network or a sensor or an actuators.
 - **Links**: Represent the communication links between nodes.
 
 ```json
@@ -457,12 +457,13 @@ The Earliest Deadline First (EDF) Multi-Node (Without Communication Delay) algor
 
 #### Execution Times
 
-- The algorithm iterates over the **schedule list** and for each task, the start time is the earliest possible time determined by the nodes' availability and the completion of its dependent tasks.
-- Task end times are calculated using the Worst-Case Execution Time (WCET) of the task. If a task's end time exceeds its deadline, it is flagged as a missed deadline, and all its successors are excluded from scheduling to preserve dependency correctness.
+- For each task in the schedule list, the algorithm assigns the earliest feasible start time considering node availability and predecessor completion.
+- Task end times are calculated based on the Worst-Case Execution Time (WCET).
+- If a task's end time exceeds its deadline, it is flagged as a missed deadline, and all its successors are excluded from scheduling.
 
 #### Handling Concurrent Execution
 
-- Multiple tasks that are independent of each other should be scheduled for execution concurrently on different nodes.
+- Multiple independent tasks that are eligible for concurrent execution should be scheduled in parallel across different nodes, based on node availability.
 
 ### Example
 
@@ -547,11 +548,6 @@ The **Latest Deadline First (LDF) Multi-Node (Without Communication Delay)** alg
 #### Node Selection
 
 - Tasks are assigned to computational nodes based on their availability, prioritizing the earliest available node for execution, breaking the tie based on the lowest *node id*.
-
-#### Task Distribution and Execution
-
-- Once leaf tasks are scheduled, the algorithm checks their predecessors. Among the predecessors whose successors have all been completed, the one with the latest deadline is selected for scheduling.
-- Tasks are distributed across nodes based on the earliest available time, taking advantage of concurrent execution when possible.
 
 ####  Execution Times
 - For each task in the schedule list, the algorithm assigns the earliest feasible start time considering node availability and predecessor completion.
@@ -685,7 +681,7 @@ The Least Laxity First (LLF) scheduling algorithm for multi-node environments pr
 
 7. **Monitor Deadlines:**
    - Continuously monitor task execution to ensure deadlines are met.
-   - If a task’s completion time exceeds its deadline, it is marked as a missed deadline, and future scheduling decisions are adjusted accordingly.
+   - If a task’s completion time exceeds its deadline, it is marked as a missed deadline, and all its successors are excluded from scheduling.
 
 #### Example
 
