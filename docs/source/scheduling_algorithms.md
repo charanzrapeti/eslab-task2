@@ -340,28 +340,29 @@ The Latest Deadline First (LDF) scheduling algorithm for a single node prioritiz
 
 #### Selection of Tasks
 
-- Among the tasks that can be scheduled, the task with the latest deadline is selected for execution. This ensures that tasks with the furthest deadlines are given priority.
+- At each step, from the current set of **schedulable tasks**, select the one with the **latest absolute deadline**. Ties are broken using a deterministic secondary key, i.e, the lowest task ID.
 
 #### Building Schedule
-
-- At each step, from the current set of **schedulable tasks**, select the one with the latest absolute deadline. Ties are broken using a deterministic secondary key, i.e, the lowest task ID.
-
-#### Dependency Management
 
 - After scheduling a task, the algorithm updates the set of tasks that can be scheduled next. This involves checking the predecessors of the currently scheduled task. If all successors of a predecessor task have been scheduled, the predecessor task becomes eligible for scheduling.
 
 #### Iterative Scheduling
 
-- The scheduling process iterates through the available tasks, continuously selecting and scheduling tasks based on their latest deadlines. The system dynamically updates the status of tasks and their dependencies, ensuring that at each step, the task with the latest deadline is chosen.
-
+- The scheduling process iterates through all the available tasks, continuously selecting and scheduling tasks based on their latest deadlines.
 
 #### Execution Times
 
-- Tasks are executed in order defined by the schedule list, with the earliest possible start time that is determined based on the node's availability.
+>[!Note]
+>LDF builds the schedule backwards, so you build the schedule and then reverse it to get the actual order of execution.
 
-#### Handling Task Completion and Deadlines
+- Tasks are executed in the order defined by the schedule list, each starting at the earliest possible time determined by the node’s current availability and the completion of its dependent tasks.
 
-- The end time of each task is calculated based on its Worst-Case Execution Time (WCET). If this end time exceeds the task’s deadline, the task is marked as a deadline miss, and all of its successors (tasks that depend on it) are excluded from further scheduling, as their execution would violate dependency correctness.
+#### Handling Deadline Misses
+
+- If a task's execution is anticipated to exceed its deadline, it is marked as a missed deadline. If a task’s end time exceeds its deadline, it is marked as a miss, and all dependent successors are excluded from scheduling to preserve dependency correctness.
+
+>[!Warning]
+>Only add the tasks that were scheduled and missed the deadline; don't include the successors of the missed deadline tasks in the **missed_deadlines** list.
 
 
 This method maximizes the utilization of available time before their deadlines, while allowing tasks with earlier deadlines to be handled with the flexibility provided by scheduling tasks with later deadlines first. 
