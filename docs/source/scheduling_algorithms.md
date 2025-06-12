@@ -248,27 +248,22 @@ The Earliest Deadline First (EDF) algorithm is used to schedule tasks on a singl
 
 #### Selection of Tasks
 
-- Among the tasks that are ready for execution, the task with the earliest deadline is selected. This task is prioritized to ensure that the most time-sensitive operations are addressed first.
+- At each step, from the current set of **schedulable tasks**, select the task with the earliest deadline. Ties are broken using a deterministic secondary key, i.e, the lowest task ID.
 
-#### Task Execution
+#### Building Schedule
 
-- The selected task is then scheduled on the computational node. The start time is determined based on the node's availability, and the task is executed for a duration corresponding to its WCET. The end time is calculated and recorded.
-
-#### Dependency Resolution
-
-- Upon the completion of a task, the scheduler evaluates its dependent tasks. If all dependencies of a subsequent task are resolved (i.e., all predecessor tasks are completed), this task becomes eligible for scheduling.
+- After scheduling a task, the algorithm updates the set of tasks that can be scheduled next. This involves checking the successors of the currently scheduled task. If all predecessors of a  task have been scheduled, the task becomes eligible for scheduling.
 
 #### Iterative Scheduling
 
-- The scheduling process iterates through the available tasks, continuously selecting and scheduling tasks based on their deadlines. The system dynamically updates the status of tasks and their dependencies, ensuring that at each step, the task with the nearest deadline is chosen.
+- The scheduling process iterates through the available tasks, continuously selecting and scheduling tasks based on their deadlines, resulting in a list of scheduled tasks.
 
 #### Handling Deadline Misses
 
-- If a task's execution is anticipated to exceed its deadline, it is marked as a missed deadline. The scheduler records such instances and evaluates the impact on subsequent tasks. Efforts are made to minimize the cascading effects of missed deadlines on the overall schedule.
+- If a task's execution is anticipated to exceed its deadline, it is marked as a missed deadline. If this end time exceeds the task’s deadline, the task is marked as a deadline miss, and all of its successors (tasks that depend on it) are excluded from further scheduling, as their execution would violate dependency correctness.
 
-#### Final Schedule Compilation
-
-- At the conclusion of the scheduling process, a comprehensive schedule is compiled. This includes detailed records of task start and end times, deadlines, and any instances of missed deadlines. The final schedule provides a clear overview of task execution and node utilization.
+>[!Warning]
+>Only add the tasks that were scheduled and missed the deadline, don't include the successors of the missed deadline tasks in the **missed_deadlines** list.
 
 #### Example
 
@@ -362,7 +357,7 @@ The Latest Deadline First (LDF) scheduling algorithm for a single node prioritiz
 
 #### Execution Times
 
-- Tasks are executed in order defined by the schedule list, with the earliest possible start time. 
+- Tasks are executed in order defined by the schedule list, with the earliest possible start time that is determined based on the node's availability.
 
 #### Handling Task Completion and Deadlines
 
