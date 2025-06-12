@@ -1,7 +1,7 @@
 # Task Scheduling Backend
 
 
-This repository contains the backend server for the Task Scheduling front-end. The backend is responsible for processing the logical model, running scheduling algorithms, and communicating with the frontend. It is built with FastAPI and provides a RESTful API for interaction with the [frontend](https://eslab2.pages.dev/).
+This repository contains the backend server for the Task Scheduling front-end. The backend is responsible for processing the logical model, running scheduling algorithms, and communicating with the frontend. It is built with FastAPI and provides a RESTful API for interaction with the [frontend](https://eslab.es.eti.uni-siegen.de/eslab2/index.html).
 
 ## Table of Contents
 - [Getting Started](#getting-started)
@@ -42,7 +42,7 @@ This repository contains the backend server for the Task Scheduling front-end. T
 
 6. To access the API documentation, go to http://localhost:8000/docs.
 
-7. Visit the frontend at [eslab2.pages.dev](https://eslab2.pages.dev/), and input the logical and platform model as defined in the input schema to schedule tasks.
+7. Visit the [frontend]([https://eslab2.pages.dev/](https://eslab.es.eti.uni-siegen.de/eslab2/index.html)), and input the logical and platform model as defined in the input schema to schedule tasks.
 
 ## Technologies Used
 
@@ -50,11 +50,6 @@ This repository contains the backend server for the Task Scheduling front-end. T
 - [FastAPI](https://fastapi.tiangolo.com/learn/)
 - [NetworkX](https://networkx.org/documentation/stable/tutorial.html)
 - [Uvicorn](https://www.uvicorn.org/)
-
-
-
-
-
 
 ## API Endpoints
 
@@ -83,7 +78,7 @@ By adhering to this schema, you can validate the input JSON model before process
 
 ### Output Schema 
 
-Ouput schema can be found in this file, [output_schema.json](output_schema.json)
+Output schema can be found in this file, [output_schema.json](output_schema.json)
 
 This schema defines the structure for the schedule object produced by the scheduling algorithms. It ensures that each scheduled item has:
 
@@ -121,9 +116,9 @@ Contributions are welcome! Please follow these steps to contribute:
 - Create a new Pull Request.
 
 ## Resources and References
-1. Github Backend Repository: [Task Scheduling Backend](https://github.com/linem-davton/es-lab-task2)
-2. Github Frontend Repository: [Task Scheduling Frontend](https://github.com/linem-davton/graphdraw-frontend)
-3. More about the [Schedule Visualization Frontend](scheduling_visualization.md)
+1. Github Backend Repository: [Task Scheduling Backend](https://github.com/EmbeddedSystems-UniversitySiegen/eslab-task2)
+2. Github Frontend Repository: [Task Scheduling Frontend](https://github.com/linem-davton/schedule_viz-frontend)
+3. More about the [Schedule Visualization Frontend](schedule-visualization-frontend.md)
 4. For a comprehensive overview of the algorithms, see [Scheduling Algorithms Documentation](scheduling_algorithms.md)
 
 
