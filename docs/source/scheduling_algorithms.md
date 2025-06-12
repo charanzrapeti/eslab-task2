@@ -258,12 +258,16 @@ The Earliest Deadline First (EDF) algorithm is used to schedule tasks on a singl
 
 - The scheduling process iterates through the available tasks, continuously selecting and scheduling tasks based on their deadlines, resulting in a list of scheduled tasks.
 
+#### Execution Times
+
+- Tasks are executed in the order defined by the schedule list, each starting at the earliest possible time determined by the node’s current availability and the completion of its dependent tasks.
+
 #### Handling Deadline Misses
 
-- If a task's execution is anticipated to exceed its deadline, it is marked as a missed deadline. If this end time exceeds the task’s deadline, the task is marked as a deadline miss, and all of its successors (tasks that depend on it) are excluded from further scheduling, as their execution would violate dependency correctness.
+- If a task's execution is anticipated to exceed its deadline, it is marked as a missed deadline. If a task’s end time exceeds its deadline, it is marked as a miss, and all dependent successors are excluded from scheduling to preserve dependency correctness.
 
 >[!Warning]
->Only add the tasks that were scheduled and missed the deadline, don't include the successors of the missed deadline tasks in the **missed_deadlines** list.
+>Only add the tasks that were scheduled and missed the deadline; don't include the successors of the missed deadline tasks in the **missed_deadlines** list.
 
 #### Example
 
