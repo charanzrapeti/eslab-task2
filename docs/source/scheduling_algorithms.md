@@ -532,7 +532,7 @@ Consider an example of scheduling tasks on a multi-node platform using EDF witho
 - **Task 5** is scheduled on Node 5, starting at time 40 and finishing at time 60, which meets its deadline of 100.
 - **Task 6** runs on Node 6, starting at time 40 and ending at time 60, well within its deadline of 120.
 
-- No deadlines were missed in this schedule.
+- No task missed its deadlines.
 
 ## Latest Deadline First (LDF) Multinode (Without Communication Delay)
 
