@@ -439,7 +439,7 @@ Consider the application model described by the DAG. Analyzing the order of task
 - **Task 5** is then scheduled, starting at time 80 and finishing at time 100, meeting its deadline of 100.
 - **Task 6** is the final task. It starts at time 100 and finishes at time 120, meeting its deadline of 120.
 
-No deadlines were missed in this schedule.
+No task missed its deadline.
 
 ## Earliest Deadline First (EDF) Multi-Node (Without Communication Delay)
 
@@ -532,7 +532,7 @@ Consider an example of scheduling tasks on a multi-node platform using EDF witho
 - **Task 5** is scheduled on Node 5, starting at time 40 and finishing at time 60, which meets its deadline of 100.
 - **Task 6** runs on Node 6, starting at time 40 and ending at time 60, well within its deadline of 120.
 
-- No task missed its deadlines.
+No task missed its deadline.
 
 ## Latest Deadline First (LDF) Multinode (Without Communication Delay)
 
@@ -540,35 +540,26 @@ The **Latest Deadline First (LDF) Multi-Node (Without Communication Delay)** alg
 
 ### Scheduling Mechanism
 
-#### Initialization
+#### Building Schedule List
 
-- **Identify Leaf Tasks:** The algorithm begins by identifying tasks with no successors (leaf tasks). These tasks are selected first for scheduling.
-- **Task Selection:** The tasks with the latest deadlines are prioritized for scheduling first, enabling other tasks with earlier deadlines to wait as long as possible.
+- The schedule list is computed in the same manner as in the single-node case.
 
 #### Node Selection
 
-- Tasks are assigned to computational nodes based on their availability, ensuring that the latest-deadline tasks are scheduled on the first available node.
+- Tasks are assigned to computational nodes based on their availability, prioritizing the earliest available node for execution, breaking the tie based on the lowest *node id*.
 
 #### Task Distribution and Execution
 
 - Once leaf tasks are scheduled, the algorithm checks their predecessors. Among the predecessors whose successors have all been completed, the one with the latest deadline is selected for scheduling.
 - Tasks are distributed across nodes based on the earliest available time, taking advantage of concurrent execution when possible.
 
-#### Managing Dependencies
+####  Execution Times
+- For each task in the schedule list, the algorithm assigns the earliest feasible start time considering node availability and predecessor completion.
+- Task end times are calculated based on the Worst-Case Execution Time (WCET).
+- If a task's end time exceeds its deadline, it is flagged as a missed deadline, and all its successors are excluded from scheduling.
 
-- The algorithm continuously monitors task dependencies, ensuring that a task can only be scheduled when all its successors have been executed.
-- Predecessor tasks are dynamically added to the schedulable pool as their successors finish execution.
-
-#### Handling Concurrent Execution
-
-- Tasks that are independent of each other can execute concurrently across different nodes, utilizing multi-node parallelism to increase efficiency.
-- Parallel execution ensures that more tasks are able to meet their deadlines by taking advantage of idle nodes.
-
-#### Scheduling and Deadline Management
-
-- The start time of each task depends on the completion time of its predecessors, combined with the availability of the assigned node.
-- The task's end time is determined by its Worst-Case Execution Time (WCET). If the task exceeds its deadline, it is flagged as a missed deadline, and subsequent dependent tasks are removed from the schedule to prevent further violations.
-- By selecting tasks with the latest deadlines, the algorithm delays task execution as much as possible while aiming to avoid missing deadlines.
+####  Handling Concurrent Execution
+- Multiple independent tasks that are eligible for concurrent execution should be scheduled in parallel across different nodes, based on node availability.
 
 ### Example
 
@@ -638,7 +629,7 @@ Let's explore an example of scheduling tasks on a multi-node platform using LDF 
 - **Task 5** is scheduled on Node 5, starting at time 40 and completing at time 60, meeting its deadline of 100.
 - **Task 6** runs on Node 6, starting at time 40 and finishing at time 60, which is well within its deadline of 120.
 
-- No deadlines were missed in this schedule.
+No task missed its deadline.
 
 ## Least Laxity First (LLF) Multinode (Without Communication Delay)
 
@@ -764,4 +755,4 @@ Let’s look at an example of LLF scheduling in a multi-node environment.
 - **Task 5** runs on Node 5, beginning at time 40 and completing at time 60, meeting its deadline of 100.
 - **Task 6** is scheduled on Node 6, starting at time 40 and finishing at time 60, which is well within its deadline of 120.
 
-- No deadlines were missed in this schedule.
+No task missed its deadline.
