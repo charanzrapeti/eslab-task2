@@ -12,20 +12,20 @@ The scheduling algorithms covered and to be implemented are:
 
 ![Application Model](./images/application.png)
 
-The application model is illustrated as a Directed Acyclic Graph (DAG), highlighting the tasks and their dependencies. Nodes within the DAG represent individual tasks, each annotated with attributes such as deadlines and worst case execution times. Directed edges between nodes depict the dependency relationships among tasks, signifying that a task can only commence once all its prerequisite tasks (predecessors) have been completed.
+The application model is illustrated as a Directed Acyclic Graph (DAG), highlighting the tasks and their dependencies. Nodes within the DAG represent individual tasks, each annotated with attributes such as deadlines and worst-case execution times. Directed edges between nodes depict the dependency relationships among tasks, signifying that a task can only commence once all its prerequisite tasks (predecessors) have been completed.
 
 ## Platform Model
 
 ![Platform Model](./images/platform.png)
-The platform model features multiple nodes, each with different roles including compute nodes, routers, sensors, and actuators. Tasks are distributed across these nodes, and the scheduling decisions are made based on task deadlines and dependencies, ensuring that tasks are executed in accordance with their timing constraints. The model supports parallel task execution on multiple compute nodes, with data transmission facilitated by routers and interactions with the physical environment managed by sensors and actuators. This setup allows for complex, distributed scheduling scenarios, reflecting a realistic multi-node platform environment
+The platform model features multiple nodes, each with different roles, including compute nodes, routers, sensors, and actuators. Tasks are distributed across these nodes, and the scheduling decisions are made based on task deadlines and dependencies, ensuring that tasks are executed in accordance with their timing constraints. The model supports parallel task execution on multiple compute nodes, with data transmission facilitated by routers and interactions with the physical environment managed by sensors and actuators. This setup allows for complex, distributed scheduling scenarios, reflecting a realistic multi-node platform environment
 
 ## JSON Input
 
-The input to the scheduling algorithms is a JSON object that describes the application and platform models. The application model includes tasks and messages, while the platform model includes nodes and links. The JSON input contains following objects and should conform to the [input JSON schema](./input_schema.json).
+The input to the scheduling algorithms is a JSON object that describes the application and platform models. The application model includes tasks and messages, while the platform model includes nodes and links. The JSON input contains the following objects and should conform to the [input JSON schema](./input_schema.json).
 
 - **Tasks**: Represent the tasks to be scheduled.
 - **Messages**: Represent dependencies between tasks.
-- **Nodes**: Represent the either a compute node where tasks can be executed or router in the network or a sensor or a actuators.
+- **Nodes**: Represent either a compute node where tasks can be executed or router in the network or a sensor or an actuators.
 - **Links**: Represent the communication links between nodes.
 
 ```json
@@ -248,27 +248,26 @@ The Earliest Deadline First (EDF) algorithm is used to schedule tasks on a singl
 
 #### Selection of Tasks
 
-- Among the tasks that are ready for execution, the task with the earliest deadline is selected. This task is prioritized to ensure that the most time-sensitive operations are addressed first.
+- At each step, from the current set of **schedulable tasks**, select the task with the earliest deadline. Ties are broken using a deterministic secondary key, i.e, the lowest task ID.
 
-#### Task Execution
+#### Building Schedule
 
-- The selected task is then scheduled on the computational node. The start time is determined based on the node's availability, and the task is executed for a duration corresponding to its WCET. The end time is calculated and recorded.
-
-#### Dependency Resolution
-
-- Upon the completion of a task, the scheduler evaluates its dependent tasks. If all dependencies of a subsequent task are resolved (i.e., all predecessor tasks are completed), this task becomes eligible for scheduling.
+- After scheduling a task, the algorithm updates the set of tasks that can be scheduled next. This involves checking the successors of the currently scheduled task. If all predecessors of a  task have been scheduled, the task becomes eligible for scheduling.
 
 #### Iterative Scheduling
 
-- The scheduling process iterates through the available tasks, continuously selecting and scheduling tasks based on their deadlines. The system dynamically updates the status of tasks and their dependencies, ensuring that at each step, the task with the nearest deadline is chosen.
+- The scheduling process iterates through the available tasks, continuously selecting and scheduling tasks based on their deadlines, resulting in a list of scheduled tasks.
+
+#### Execution Times
+
+- Tasks are executed in the order defined by the schedule list, each starting at the earliest possible time determined by the node’s current availability and the completion of its dependent tasks.
 
 #### Handling Deadline Misses
 
-- If a task's execution is anticipated to exceed its deadline, it is marked as a missed deadline. The scheduler records such instances and evaluates the impact on subsequent tasks. Efforts are made to minimize the cascading effects of missed deadlines on the overall schedule.
+- If a task's execution is anticipated to exceed its deadline, it is marked as a missed deadline. If a task’s end time exceeds its deadline, it is marked as a miss, and all dependent successors are excluded from scheduling to preserve dependency correctness.
 
-#### Final Schedule Compilation
-
-- At the conclusion of the scheduling process, a comprehensive schedule is compiled. This includes detailed records of task start and end times, deadlines, and any instances of missed deadlines. The final schedule provides a clear overview of task execution and node utilization.
+>[!Warning]
+>Only add the tasks that were scheduled and missed the deadline; don't include the successors of the missed deadline tasks in the **missed_deadlines** list.
 
 #### Example
 
@@ -345,25 +344,32 @@ The Latest Deadline First (LDF) scheduling algorithm for a single node prioritiz
 
 #### Selection of Tasks
 
-- Among the tasks that can be scheduled, the task with the latest deadline is selected for execution. This ensures that tasks with the furthest deadlines are given priority.
+- At each step, from the current set of **schedulable tasks**, select the one with the **latest absolute deadline**. Ties are broken using a deterministic secondary key, i.e, the lowest task ID.
 
-#### Task Execution
-
-- Once a task is selected, it is scheduled for execution on the single computational node. The start time is determined based on the completion time of the previously scheduled task, ensuring no overlap.
-
-#### Dependency Management
+#### Building Schedule
 
 - After scheduling a task, the algorithm updates the set of tasks that can be scheduled next. This involves checking the predecessors of the currently scheduled task. If all successors of a predecessor task have been scheduled, the predecessor task becomes eligible for scheduling.
 
 #### Iterative Scheduling
 
-- The scheduling process iterates through the available tasks, continuously selecting and scheduling tasks based on their latest deadlines. The system dynamically updates the status of tasks and their dependencies, ensuring that at each step, the task with the latest deadline is chosen.
+- The scheduling process iterates through all the available tasks, continuously selecting and scheduling tasks based on their latest deadlines.
 
-#### Handling Task Completion and Deadlines
+#### Execution Times
 
-- The end time of each task is calculated based on its Worst-Case Execution Time (WCET). If a task's completion time exceeds its deadline, it is marked as a missed deadline. The algorithm continues this process until all tasks are scheduled.
+>[!Note]
+>LDF builds the schedule backwards, so you build the schedule and then reverse it to get the actual order of execution.
 
-This method maximizes the utilization of available time before their deadlines, while allowing tasks with earlier deadlines to be handled with the flexibility provided by scheduling tasks with later deadlines first. The LDF algorithm is particularly useful in scenarios where tasks with later deadlines are more critical or have higher priority for completion.
+- Tasks are executed in the order defined by the schedule list, each starting at the earliest possible time determined by the node’s current availability and the completion of its dependent tasks.
+
+#### Handling Deadline Misses
+
+- If a task's execution is anticipated to exceed its deadline, it is marked as a missed deadline. If a task’s end time exceeds its deadline, it is marked as a miss, and all dependent successors are excluded from scheduling to preserve dependency correctness.
+
+>[!Warning]
+>Only add the tasks that were scheduled and missed the deadline; don't include the successors of the missed deadline tasks in the **missed_deadlines** list.
+
+
+This method maximizes the utilization of available time before their deadlines, while allowing tasks with earlier deadlines to be handled with the flexibility provided by scheduling tasks with later deadlines first. 
 
 #### Example
 
@@ -433,7 +439,7 @@ Consider the application model described by the DAG. Analyzing the order of task
 - **Task 5** is then scheduled, starting at time 80 and finishing at time 100, meeting its deadline of 100.
 - **Task 6** is the final task. It starts at time 100 and finishes at time 120, meeting its deadline of 120.
 
-No deadlines were missed in this schedule.
+No task missed its deadline.
 
 ## Earliest Deadline First (EDF) Multi-Node (Without Communication Delay)
 
@@ -441,34 +447,23 @@ The Earliest Deadline First (EDF) Multi-Node (Without Communication Delay) algor
 
 ### Scheduling Mechanism
 
-#### Initialization
+#### Building Schedule List
 
-- **Identify Root Tasks:** The algorithm begins by identifying tasks with no dependencies (root tasks) and schedules them for execution on available nodes immediately.
+- The schedule list is computed in the same manner as in the *single-node* case.
 
 #### Node Selection
 
-- Tasks are assigned to computational nodes based on their availability, prioritizing the earliest available node for execution.
+- Tasks are assigned to computational nodes based on their availability, prioritizing the earliest available node for execution, breaking the tie based on the lowest *node id*.
 
-#### Task Distribution and Execution
+#### Execution Times
 
-- Once root tasks are completed, their dependent tasks are checked. Among these, the task with the earliest deadline is selected for execution.
-- Tasks are scheduled on nodes based on the earliest available time, allowing independent tasks to execute concurrently across nodes.
-
-#### Managing Dependencies
-
-- The algorithm continuously monitors dependencies between tasks, only allowing a task to be scheduled once all its predecessors have finished executing.
-- Task dependencies are respected, and the availability of a task for scheduling is updated dynamically as the schedule progresses.
+- For each task in the schedule list, the algorithm assigns the earliest feasible start time considering node availability and predecessor completion.
+- Task end times are calculated based on the Worst-Case Execution Time (WCET).
+- If a task's end time exceeds its deadline, it is flagged as a missed deadline, and all its successors are excluded from scheduling.
 
 #### Handling Concurrent Execution
 
-- Multiple tasks that are independent of each other can be scheduled for execution concurrently on different nodes, taking advantage of parallel processing capabilities.
-- This concurrent execution improves scheduling efficiency and increases the likelihood of meeting task deadlines.
-
-#### Scheduling and Deadline Management
-
-- The start time of each task is determined by the completion time of its preceding tasks, along with the availability of the node.
-- Task end times are calculated using the Worst-Case Execution Time (WCET) of the task. If a task's end time exceeds its deadline, it is flagged as a missed deadline.
-- By consistently prioritizing tasks with the earliest deadlines, the algorithm seeks to minimize missed deadlines.
+- Multiple independent tasks that are eligible for concurrent execution should be scheduled in parallel across different nodes, based on node availability.
 
 ### Example
 
@@ -538,7 +533,7 @@ Consider an example of scheduling tasks on a multi-node platform using EDF witho
 - **Task 5** is scheduled on Node 5, starting at time 40 and finishing at time 60, which meets its deadline of 100.
 - **Task 6** runs on Node 6, starting at time 40 and ending at time 60, well within its deadline of 120.
 
-- No deadlines were missed in this schedule.
+No task missed its deadline.
 
 ## Latest Deadline First (LDF) Multinode (Without Communication Delay)
 
@@ -546,35 +541,21 @@ The **Latest Deadline First (LDF) Multi-Node (Without Communication Delay)** alg
 
 ### Scheduling Mechanism
 
-#### Initialization
+#### Building Schedule List
 
-- **Identify Leaf Tasks:** The algorithm begins by identifying tasks with no successors (leaf tasks). These tasks are selected first for scheduling.
-- **Task Selection:** The tasks with the latest deadlines are prioritized for scheduling first, enabling other tasks with earlier deadlines to wait as long as possible.
+- The schedule list is computed in the same manner as in the single-node case.
 
 #### Node Selection
 
-- Tasks are assigned to computational nodes based on their availability, ensuring that the latest-deadline tasks are scheduled on the first available node.
+- Tasks are assigned to computational nodes based on their availability, prioritizing the earliest available node for execution, breaking the tie based on the lowest *node id*.
 
-#### Task Distribution and Execution
+####  Execution Times
+- For each task in the schedule list, the algorithm assigns the earliest feasible start time considering node availability and predecessor completion.
+- Task end times are calculated based on the Worst-Case Execution Time (WCET).
+- If a task's end time exceeds its deadline, it is flagged as a missed deadline, and all its successors are excluded from scheduling.
 
-- Once leaf tasks are scheduled, the algorithm checks their predecessors. Among the predecessors whose successors have all been completed, the one with the latest deadline is selected for scheduling.
-- Tasks are distributed across nodes based on the earliest available time, taking advantage of concurrent execution when possible.
-
-#### Managing Dependencies
-
-- The algorithm continuously monitors task dependencies, ensuring that a task can only be scheduled when all its successors have been executed.
-- Predecessor tasks are dynamically added to the schedulable pool as their successors finish execution.
-
-#### Handling Concurrent Execution
-
-- Tasks that are independent of each other can execute concurrently across different nodes, utilizing multi-node parallelism to increase efficiency.
-- Parallel execution ensures that more tasks are able to meet their deadlines by taking advantage of idle nodes.
-
-#### Scheduling and Deadline Management
-
-- The start time of each task depends on the completion time of its predecessors, combined with the availability of the assigned node.
-- The task's end time is determined by its Worst-Case Execution Time (WCET). If the task exceeds its deadline, it is flagged as a missed deadline, and subsequent dependent tasks are removed from the schedule to prevent further violations.
-- By selecting tasks with the latest deadlines, the algorithm delays task execution as much as possible while aiming to avoid missing deadlines.
+####  Handling Concurrent Execution
+- Multiple independent tasks that are eligible for concurrent execution should be scheduled in parallel across different nodes, based on node availability.
 
 ### Example
 
@@ -644,7 +625,7 @@ Let's explore an example of scheduling tasks on a multi-node platform using LDF 
 - **Task 5** is scheduled on Node 5, starting at time 40 and completing at time 60, meeting its deadline of 100.
 - **Task 6** runs on Node 6, starting at time 40 and finishing at time 60, which is well within its deadline of 120.
 
-- No deadlines were missed in this schedule.
+No task missed its deadline.
 
 ## Least Laxity First (LLF) Multinode (Without Communication Delay)
 
@@ -700,7 +681,7 @@ The Least Laxity First (LLF) scheduling algorithm for multi-node environments pr
 
 7. **Monitor Deadlines:**
    - Continuously monitor task execution to ensure deadlines are met.
-   - If a task’s completion time exceeds its deadline, it is marked as a missed deadline, and future scheduling decisions are adjusted accordingly.
+   - If a task’s completion time exceeds its deadline, it is marked as a missed deadline, and all its successors are excluded from scheduling.
 
 #### Example
 
@@ -770,4 +751,4 @@ Let’s look at an example of LLF scheduling in a multi-node environment.
 - **Task 5** runs on Node 5, beginning at time 40 and completing at time 60, meeting its deadline of 100.
 - **Task 6** is scheduled on Node 6, starting at time 40 and finishing at time 60, which is well within its deadline of 120.
 
-- No deadlines were missed in this schedule.
+No task missed its deadline.

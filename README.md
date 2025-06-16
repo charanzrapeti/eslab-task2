@@ -120,9 +120,9 @@ Contributions are welcome! Please follow these steps to contribute:
 - Create a new Pull Request.
 
 ## Resources and References
-1. Github Backend Repository: [Task Scheduling Backend](https://github.com/linem-davton/es-lab-task2)
+1. Github Backend Repository: [Task Scheduling Backend](https://github.com/EmbeddedSystems-UniversitySiegen/eslab-task2)
 2. Github Frontend Repository: [Task Scheduling Frontend](https://github.com/linem-davton/graphdraw-frontend)
-3. More about the [Schedule Visualization Frontend](./docs/source/scheduling_visualization.md)
+3. More about the [Schedule Visualization Frontend](./docs/source/schedule-visualization-frontend.md)
 4. For a comprehensive overview of the algorithms, see [Scheduling Algorithms Documentation](./docs/source/scheduling_algorithms.md)
 
 
