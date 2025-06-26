@@ -1,7 +1,7 @@
 
 # Schedule Visualization Frontend
 
-This project is a React-based frontend designed to visualize task schedules along with Application and Platform model. It interfaces with a backend server, with the configuration specified in `config.json`, and is accessible via [eslab2.pages.dev](https://eslab2.pages.dev) for local servers and [codespace servers](https://eslab.es.eti.uni-siegen.de/eslab2/index.html).
+This project is a React-based frontend designed to visualize task schedules along with Application and Platform model. It interfaces with a backend server, with the configuration specified in `config.json`, and is accessible via [eslab2.pages.dev](https://eslab2.pages.dev) for local servers and for [codespace servers](https://eslab.es.eti.uni-siegen.de/eslab2/index.html).
 
 
 ## Table of Contents
@@ -13,7 +13,7 @@ This project is a React-based frontend designed to visualize task schedules alon
 ## Features
 
 
-- **Upload JSON File**: Upload a JSON file with application and platform model as defined in [schema](https://eslab2docs.pages.dev/README#api-input-schema-for-schedule-jobs) to visualize the model.
+- **Upload JSON File**: Upload a JSON file with application and platform model as defined in [input schema](input_schema.json) to visualize the model.
 
 - **Add Nodes and Edges**: Modify the existing application and platform model by adding tasks, dependencies, nodes, and links.
 
@@ -31,19 +31,18 @@ This project is a React-based frontend designed to visualize task schedules alon
 
   - Accesible at [Distributed Scheduling](https://eslab.es.eti.uni-siegen.de/eslab2/index.html).
 
-  - **Upload JSON File**: Click on the "Upload JSON" button to upload a pre-defined Application model. The  JSON file should follow the input schema defined at [eslab2docs](https://eslab2docs.pages.dev/README#api-input-schema-for-schedule-jobs).
-  - **Load Default Json**: Loads default application and platform model.
-
+  - **Upload JSON File**: Click on the "Upload JSON" button to upload a pre-defined Application model. The  JSON file should follow the [input schema](input_schema.json).
+  - **Load Default Json**: Loads the default application and platform model.
   - **Saving and Exporting**: Export the updated JSON file containing the application and platform model, including any changes, using the "Download JSON" button. 
 
 
 ### Creating Application Model
 
-  - **Add Tasks and Task Dependencies**: Create your own Application model by selecting the "Application model" on the screen. Use the "Add Tasks" button to create tasks individually and tasks dependencies using the "Add dependency" button.
+  - **Add Tasks and Task Dependencies**: Create your Application model by selecting the "Application model" on the screen. Use the "Add Tasks" button to create tasks individually and task dependencies using the "Add dependency" button.
 
   - **Adjusting Task Parameters**: WCET and deadline for a task can be changed by clicking on the task and adjusting the respective sliders.
 
-  - **Delete Mode**: The tasks and Edges can be deleted by first clicking on the "Delete Mode" button then selecting the task or edge you want to delete.
+  - **Delete Mode**: The tasks and Edges can be deleted by first clicking on the "Delete Mode" button, then selecting the task or edge you want to delete.
 
   - **Generate Random Application Model**: Generate a random application model by entering the number of tasks, the maximum and minimum WCET for each task, the maximum deadline, and the offset between the WCET and the deadline.
 
@@ -59,7 +58,7 @@ This project is a React-based frontend designed to visualize task schedules alon
 
   - **Generate Random Platform Model**: Generate a random platform model by entering the number of compute, router, sensor, and actuator nodes, as well as the maximum and minimum link delays for each edge.
 
-  - **Visualizing the Platform Model**:The Platform Model will be displayed as a graph. Nodes represent nodes, and edges represent links between the nodes.
+  - **Visualizing the Platform Model**:The The Platform Model will be displayed as a graph. Nodes represent nodes, and edges represent links between the nodes.
 
 ### Hotkeys
    
